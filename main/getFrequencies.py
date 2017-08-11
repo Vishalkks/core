@@ -1,7 +1,9 @@
 import os
-from main.Constants import directories
-from main.Util.util import getGenrePath, saveObject
 from nltk.probability import FreqDist
+
+from core.main.Util.util import getGenrePath, saveObject
+
+from core.main.Constants import directories
 
 
 def create_matrix(genres, path):
