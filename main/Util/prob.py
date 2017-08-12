@@ -12,7 +12,7 @@ def genreProb(genre):
 
 
 def tokenProb(token, genre):
-	allTrainFreqs = getObject(directories.ALL_TRAIN_FREQS)
-	genreTrainFreqs = getObject(directories.GENRE_TRAIN_FREQS)
+	allTrainFreqs = getObject(directories.ALL_FREQS_TRAIN)
+	genreTrainFreqs = getObject(directories.GENRE_FREQS_TRAIN)
 
 	return genreTrainFreqs[genre][token]/allTrainFreqs[token]
