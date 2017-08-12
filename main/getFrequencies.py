@@ -4,7 +4,7 @@ from nltk.probability import FreqDist
 from core.main.Util.util import getGenrePath, saveObject, write_to_log
 
 from core.main.Constants import directories
-from string import remove_extension
+from core.main.Util.strings import remove_extension
 
 
 def create_matrix(genres, path, logfile):
@@ -14,7 +14,7 @@ def create_matrix(genres, path, logfile):
 		print 'GENRE:', genre
 		genDir = getGenrePath(path, genre)
 		allMatrix[genre] = []
-		songMatrix[genre] = []
+		songMatrix[genre] = dict()
 		for dirpath, dirnames, files in os.walk(genDir):
 			genreWords = []
 			for file in files:
