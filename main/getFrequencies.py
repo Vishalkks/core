@@ -4,7 +4,7 @@ from nltk.probability import FreqDist
 from core.main.Util.util import getGenrePath, saveObject, write_to_log
 
 from core.main.Constants import directories
-from string import remove_extension
+from core.main.Util.strings import remove_extension
 
 
 def create_matrix(genres, path, logfile):
@@ -14,7 +14,7 @@ def create_matrix(genres, path, logfile):
 		print 'GENRE:', genre
 		genDir = getGenrePath(path, genre)
 		allMatrix[genre] = []
-		songMatrix[genre] = []
+		songMatrix[genre] = dict()
 		for dirpath, dirnames, files in os.walk(genDir):
 			genreWords = []
 			for file in files:
@@ -44,9 +44,9 @@ allValFreqs, songValFreqs = create_matrix(genres, directories.VAL_PATH, logfile)
 print 'TEST'
 allTestFreqs, songTestFreqs = create_matrix(genres, directories.TEST_PATH, logfile)
 
-saveObject(allTrainFreqs, directories.TRAIN_FREQS)
-saveObject(allValFreqs, directories.VAL_FREQS)
-saveObject(allTestFreqs, directories.TEST_FREQS)
-saveObject(songTrainFreqs, directories.TRAIN_FREQS)
-saveObject(songValFreqs, directories.VAL_FREQS)
-saveObject(songTestFreqs, directories.TEST_FREQS)
+saveObject(allTrainFreqs, directories.ALL_TRAIN_FREQS)
+saveObject(allValFreqs, directories.ALL_VAL_FREQS)
+saveObject(allTestFreqs, directories.ALL_TEST_FREQS)
+saveObject(songTrainFreqs, directories.SONG_TRAIN_FREQS)
+saveObject(songValFreqs, directories.SONG_VAL_FREQS)
+saveObject(songTestFreqs, directories.SONG_TEST_FREQS)
