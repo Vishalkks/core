@@ -8,6 +8,9 @@ allTestFreqs = getObject(directories.ALL_TEST_FREQS)
 songTrainFreqs = getObject(directories.SONG_TRAIN_FREQS)
 songValFreqs = getObject(directories.SONG_VAL_FREQS)
 songTestFreqs = getObject(directories.SONG_TEST_FREQS)
+genreTrainFreqs = getObject(directories.GENRE_TRAIN_FREQS)
+genreValFreqs = getObject(directories.GENRE_VAL_FREQS)
+genreTestFreqs = getObject(directories.GENRE_TEST_FREQS)
 
 x=1
 
