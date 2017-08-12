@@ -1,21 +1,21 @@
 import os
 from nltk.probability import FreqDist
 
-from core.main.Util.util import getGenrePath, saveObject, write_to_log
+from core.main.Util.files import getGenrePath, saveObject, write_to_log, remove_extension
 
 from core.main.Constants import directories
-from core.main.Util.strings import remove_extension
 
 
-def create_matrix(genres, path, logfile):
-	allMatrix = dict()
+def createMatrix(genres, path, logfile):
+
+	genreMatrix = dict()
 	songMatrix = dict()
 	for genre in genres:
 		print 'GENRE:', genre
-		genDir = getGenrePath(path, genre)
-		allMatrix[genre] = []
+		genreMatrix[genre] = []
 		songMatrix[genre] = dict()
-		for dirpath, dirnames, files in os.walk(genDir):
+		allWords = []
+		for dirpath, dirnames, files in os.walk(getGenrePath(path, genre)):
 			genreWords = []
 			for file in files:
 				song = open(dirpath + "/" + file)
@@ -28,25 +28,30 @@ def create_matrix(genres, path, logfile):
 					else:
 						songMatrix[genre][remove_extension(file)] = FreqDist(words)
 				genreWords += words
+			allWords += genreWords
+			genreMatrix[genre].append(FreqDist(genreWords))
+		allFreqs = FreqDist(allWords)
 
-			allMatrix[genre].append(FreqDist(genreWords))
-
-	return allMatrix, songMatrix
+	return genreMatrix, songMatrix, allFreqs
 
 
 logfile = open(directories.LOG_PATH, 'w+')
 
 genres = os.listdir(directories.LYRICS_DIR)
 print 'TRAIN'
-allTrainFreqs, songTrainFreqs = create_matrix(genres, directories.TRAIN_PATH, logfile)
+genreTrainFreqs, songTrainFreqs = createMatrix(genres, directories.TRAIN_PATH, logfile)
 print 'VAL'
-allValFreqs, songValFreqs = create_matrix(genres, directories.VAL_PATH, logfile)
+genreValFreqs, songValFreqs = createMatrix(genres, directories.VAL_PATH, logfile)
 print 'TEST'
-allTestFreqs, songTestFreqs = create_matrix(genres, directories.TEST_PATH, logfile)
+genreTestFreqs, songTestFreqs = createMatrix(genres, directories.TEST_PATH, logfile)
 
-saveObject(allTrainFreqs, directories.ALL_TRAIN_FREQS)
-saveObject(allValFreqs, directories.ALL_VAL_FREQS)
-saveObject(allTestFreqs, directories.ALL_TEST_FREQS)
+
+saveObject(genreTrainFreqs, directories.GENRE_TRAIN_FREQS)
+saveObject(genreValFreqs, directories.GENRE_VAL_FREQS)
+saveObject(genreTestFreqs, directories.GENRE_TEST_FREQS)
 saveObject(songTrainFreqs, directories.SONG_TRAIN_FREQS)
 saveObject(songValFreqs, directories.SONG_VAL_FREQS)
 saveObject(songTestFreqs, directories.SONG_TEST_FREQS)
+saveObject(songTrainFreqs, directories.ALL_TRAIN_FREQS)
+saveObject(songValFreqs, directories.ALL_VAL_FREQS)
+saveObject(songTestFreqs, directories.ALL_TEST_FREQS)

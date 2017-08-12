@@ -16,11 +16,15 @@ def getObject(filename):
 		return pickle.load(fp)
 
 
+def removeExtension(string):
+	return ".".join(string.split('.')[:-1])
+
+
 def create(filepath):
 	if not os.path.exists(filepath):
 		os.makedirs(filepath, 0777)
 		os.chmod(filepath, 0777)
 
 
-def write_to_log(logfile, message):
+def writeToLog(logfile, message):
 	logfile.write(message)
