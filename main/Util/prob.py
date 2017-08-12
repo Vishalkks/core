@@ -11,3 +11,8 @@ def genreProb(genre):
 	return numSongs[genre]/getAggregate(numSongs)
 
 
+def tokenProb(token, genre):
+	allTrainFreqs = getObject(directories.ALL_TRAIN_FREQS)
+	genreTrainFreqs = getObject(directories.GENRE_TRAIN_FREQS)
+
+	return genreTrainFreqs[genre][token]/allTrainFreqs[token]
