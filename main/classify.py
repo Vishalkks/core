@@ -2,15 +2,15 @@ from core.main.Constants import directories
 
 from core.main.Util.files import getObject
 
-allTrainFreqs = getObject(directories.ALL_TRAIN_FREQS)
-allValFreqs = getObject(directories.ALL_VAL_FREQS)
-allTestFreqs = getObject(directories.ALL_TEST_FREQS)
-songTrainFreqs = getObject(directories.SONG_TRAIN_FREQS)
-songValFreqs = getObject(directories.SONG_VAL_FREQS)
-songTestFreqs = getObject(directories.SONG_TEST_FREQS)
-genreTrainFreqs = getObject(directories.GENRE_TRAIN_FREQS)
-genreValFreqs = getObject(directories.GENRE_VAL_FREQS)
-genreTestFreqs = getObject(directories.GENRE_TEST_FREQS)
+allFreqsTrain = getObject(directories.ALL_FREQS_TRAIN)
+allFreqsVal = getObject(directories.ALL_FREQS_VAL)
+allFreqsTest = getObject(directories.ALL_FREQS_TEST)
+genreSongsTrain = getObject(directories.GENRE_SONGS_TRAIN)
+genreSongsVal = getObject(directories.GENRE_SONGS_VAL)
+genreSongsTest = getObject(directories.GENRE_SONGS_TEST)
+genreFreqsTrain = getObject(directories.GENRE_FREQS_TRAIN)
+genreFreqsVal = getObject(directories.GENRE_FREQS_VAL)
+genreFreqsTest = getObject(directories.GENRE_FREQS_TEST)
 
 x=1
 

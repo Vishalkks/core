@@ -51,8 +51,8 @@ def splitFiles(genres, logfile):
 genres = os.listdir(directories.LYRICS_DIR)
 logfile = open(directories.LOG_PATH, 'w+')
 
-create(directories.TRAIN_PATH)
-create(directories.TEST_PATH)
-create(directories.VAL_PATH)
+create(directories.PATH_TRAIN)
+create(directories.PATH_TEST)
+create(directories.PATH_VAL)
 
 splitFiles(genres, logfile)
