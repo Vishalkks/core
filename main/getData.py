@@ -32,7 +32,6 @@ def extractData(genres, path):
 
 			allWords += genreWords
 			genreFreqs[genre] = FreqDist(genreWords)
-			numTokens[genre] = len(genreWords)
 			numSongs[genre] = len(files)
 
 		allFreqs = FreqDist(allWords)
@@ -59,4 +58,4 @@ saveObject(allFreqsVal, directories.ALL_FREQS_VAL)
 saveObject(allFreqsTest, directories.ALL_FREQS_TEST)
 saveObject(numSongsTrain, directories.NUM_SONGS_TRAIN)
 saveObject(numSongsVal, directories.NUM_SONGS_VAL)
-saveObject(numSongsTest, directories.NUM_SONGS_VAL)
+saveObject(numSongsTest, directories.NUM_SONGS_TEST)
