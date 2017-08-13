@@ -1,17 +1,18 @@
 import os
 from nltk.probability import FreqDist
 
-from core.main.Util.files import getGenrePath, saveObject, writeToLog, removeExtension
+from core.main.Util.files import getGenrePath, saveObject, removeExtension
 
 from core.main.Constants import directories
 
 
-def createMatrix(genres, path, logfile):
+def extractData(genres, path):
 
 	genreFreqs = dict()
 	genreSongs = dict()
 	numTokens = dict()
 	numSongs = dict()
+
 	for genre in genres:
 		print 'GENRE:', genre
 		genreFreqs[genre] = []
@@ -20,17 +21,14 @@ def createMatrix(genres, path, logfile):
 
 		for dirpath, dirnames, files in os.walk(getGenrePath(path, genre)):
 			genreWords = []
+
 			for file in files:
-				song = open(dirpath + "/" + file)
 				print file
-				words = []
+				song = open(dirpath + "/" + file)
 				for line in song.readlines():
 					words = line.split(' ')
-					if removeExtension(file) in genreSongs[genre]:
-						writeToLog(logfile, "Duplicate:" + file)
-					else:
-						genreSongs[genre][removeExtension(file)] = words
-				genreWords += words
+					genreSongs[genre][removeExtension(file)] = words
+					genreWords += words
 
 			allWords += genreWords
 			genreFreqs[genre] = FreqDist(genreWords)
@@ -39,15 +37,15 @@ def createMatrix(genres, path, logfile):
 
 		allFreqs = FreqDist(allWords)
 
-	return genreFreqs, genreSongs, allFreqs, numTokens, numSongs
+	return genreFreqs, genreSongs, allFreqs, numSongs
 
 
 logfile = open(directories.LOG_PATH, 'w+')
 genres = os.listdir(directories.LYRICS_DIR)
 
-genreFreqsTrain, genreSongsTrain, allFreqsTrain, numTokensTrain, numSongsTrain = createMatrix(genres, directories.PATH_TRAIN, logfile)
-genreFreqsVal, genreSongsVal, allFreqsVal, numTokensVal, numSongsVal = createMatrix(genres, directories.PATH_VAL, logfile)
-genreFreqsTest, genreSongsTest, allFreqsTest, numTokensTest, numSongsTest = createMatrix(genres, directories.PATH_TEST, logfile)
+genreFreqsTrain, genreSongsTrain, allFreqsTrain, numSongsTrain = extractData(genres, directories.PATH_TRAIN)
+genreFreqsVal, genreSongsVal, allFreqsVal, numSongsVal = extractData(genres, directories.PATH_VAL)
+genreFreqsTest, genreSongsTest, allFreqsTest, numSongsTest = extractData(genres, directories.PATH_TEST)
 
 
 saveObject(genreFreqsTrain, directories.GENRE_FREQS_TRAIN)
@@ -59,3 +57,6 @@ saveObject(genreSongsTest, directories.GENRE_SONGS_TEST)
 saveObject(allFreqsTrain, directories.ALL_FREQS_TRAIN)
 saveObject(allFreqsVal, directories.ALL_FREQS_VAL)
 saveObject(allFreqsTest, directories.ALL_FREQS_TEST)
+saveObject(numSongsTrain, directories.NUM_SONGS_TRAIN)
+saveObject(numSongsVal, directories.NUM_SONGS_VAL)
+saveObject(numSongsTest, directories.NUM_SONGS_VAL)
