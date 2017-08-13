@@ -1,3 +1,5 @@
+import time
+
 from core.main.Constants import directories
 
 from core.main.Util.files import getObject, saveObject
@@ -8,24 +10,34 @@ def createResultMatrix(genres):
 	matrix = dict()
 	for genre in genres:
 		matrix[genre] = dict()
-		for genre in genres:
-			matrix[genre] = 0
+		for compGenre in genres:
+			matrix[genre][compGenre] = 0
 	return matrix
 
 
-def classify(genreSongs, results):
-	for genre in genreSongs:
-		print 'GENRE:', genre
-		genre = genreSongs[genre]
+def classify(genreSongs, results, numSongs, genreTrainFreqs, allTrainFreqs):
+	for genreName in genreSongs:
+		print 'GENRE:', genreName
+		genre = genreSongs[genreName]
 		for song in genre:
-			print song
 			songWords = genre[song]
-			pred = classifyGenre(songWords, genreSongs.keys())
-			results[genre][pred] += 1
+			print song, len(songWords)
+			pred = classifyGenre(songWords, genreSongs.keys(), numSongs, genreTrainFreqs, allTrainFreqs)
+			#print 'genre', genreName
+			#print 'pred', pred
+			#print 'res', results[genreName][pred]
+			results[genreName][pred] += 1
 	return results
 
 genreSongsTrain = getObject(directories.GENRE_SONGS_TRAIN)
 genreSongsVal = getObject(directories.GENRE_SONGS_VAL)
+numSongs = getObject(directories.NUM_SONGS_TRAIN)
+genreTrainFreqs = getObject(directories.GENRE_FREQS_TRAIN)
+allTrainFreqs = getObject(directories.ALL_FREQS_TRAIN)
 
-results = classify(genreSongsTrain, createResultMatrix(genreSongsTrain.keys()))
+#print genreSongsVal.keys()
+
+results = classify(genreSongsVal, createResultMatrix(genreSongsTrain.keys()), numSongs, genreTrainFreqs, allTrainFreqs)
 saveObject(results, directories.RESULTS)
+
+print results
