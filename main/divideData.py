@@ -2,8 +2,8 @@ import os.path
 import random
 from shutil import copyfile
 
-from main.Constants import directories
-from main.Util.files import getGenrePath, create, write_to_log
+from core.main.Constants import directories
+from core.main.Util.files import getGenrePath, create, writeToLog
 
 
 def moveFiles(li, path, logfile):
@@ -12,7 +12,7 @@ def moveFiles(li, path, logfile):
 		try:
 			copyfile(lyr, path + '/' + lyr.split('/')[-1])
 		except IOError:
-			write_to_log(logfile, "Could not write:" + lyr +"\n")
+			writeToLog(logfile, "Could not write:" + lyr +"\n")
 
 
 def splitFiles(genres, logfile):
@@ -20,9 +20,9 @@ def splitFiles(genres, logfile):
 		print genre
 		lyrics = []
 
-		genTrain = getGenrePath(directories.TRAIN_PATH, genre)
-		genTest = getGenrePath(directories.TEST_PATH, genre)
-		genVal = getGenrePath(directories.VAL_PATH, genre)
+		genTrain = getGenrePath(directories.PATH_TRAIN, genre)
+		genTest = getGenrePath(directories.PATH_TEST, genre)
+		genVal = getGenrePath(directories.PATH_VAL, genre)
 		artists = getGenrePath(directories.LYRICS_DIR, genre)
 
 		print 'here'
