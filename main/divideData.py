@@ -3,10 +3,10 @@ import random
 from shutil import copyfile
 
 from main.Constants import directories
-from main.Util.util import getGenrePath, create, write_to_log
+from main.Util.files import getGenrePath, create, write_to_log
 
 
-def move_files(li, path, logfile):
+def moveFiles(li, path, logfile):
 	for lyr in li:
 		print lyr
 		try:
@@ -15,7 +15,7 @@ def move_files(li, path, logfile):
 			write_to_log(logfile, "Could not write:" + lyr +"\n")
 
 
-def split_files(genres, logfile):
+def splitFiles(genres, logfile):
 	for genre in genres:
 		print genre
 		lyrics = []
@@ -41,18 +41,18 @@ def split_files(genres, logfile):
 		val = lyrics[int(len(lyrics)*0.8):]
 
 		print 'here3'
-		move_files(train, genTrain, logfile)
+		moveFiles(train, genTrain, logfile)
 		print '\tdone'
-		move_files(test, genTest, logfile)
+		moveFiles(test, genTest, logfile)
 		print '\tdone'
-		move_files(val, genVal, logfile)
+		moveFiles(val, genVal, logfile)
 		print '\tdone'
 
 genres = os.listdir(directories.LYRICS_DIR)
 logfile = open(directories.LOG_PATH, 'w+')
 
-create(directories.TRAIN_PATH)
-create(directories.TEST_PATH)
-create(directories.VAL_PATH)
+create(directories.PATH_TRAIN)
+create(directories.PATH_TEST)
+create(directories.PATH_VAL)
 
-split_files(genres, logfile)
+splitFiles(genres, logfile)
