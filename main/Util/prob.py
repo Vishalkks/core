@@ -1,8 +1,3 @@
-from Constants import directories
-from files import getObject
-from timing import timer
-
-
 def numTokensAll(freqdist):
 	return sum(numTokens(freqdist, genre) for genre in freqdist)
 
@@ -37,6 +32,5 @@ def MNBProb(songWords, genre, numSongs, genreFreqsTrain, allFreqsTrain):
 	return songProb(songWords, genre, genreFreqsTrain, allFreqsTrain)*genreProb(genre, numSongs)
 
 
-#@timer
 def classifyGenre(songWords, genres, numSongs, genreFreqsTrain, allFreqsTrain):
 	return max([(g, 1 + MNBProb(songWords, g, numSongs, genreFreqsTrain, allFreqsTrain)) for g in genres], key=lambda x: x[1])[0]

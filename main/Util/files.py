@@ -28,3 +28,10 @@ def create(filepath):
 
 def writeToLog(logfile, message):
 	logfile.write(message)
+
+
+def withoutRock(genres):
+	return [g for g in genres if g != 'Rock']
+
+
+

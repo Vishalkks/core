@@ -16,16 +16,13 @@ def createResultMatrix(genres):
 
 
 def classify(genreSongs, results, numSongs, genreFreqsTrain, allFreqsTrain):
-	for genreName in genreSongs:
+	for genreName in genreSongs.keys():
 		print 'GENRE:', genreName
 		genre = genreSongs[genreName]
 		for song in genre:
 			songWords = genre[song]
 			print song, len(songWords)
 			pred = classifyGenre(songWords, genreSongs.keys(), numSongs, genreFreqsTrain, allFreqsTrain)
-			#print 'genre', genreName
-			#print 'pred', pred
-			#print 'res', results[genreName][pred]
 			results[genreName][pred] += 1
 	return results
 
@@ -35,8 +32,7 @@ numSongs = getObject(directories.NUM_SONGS_TRAIN)
 genreFreqsTrain = getObject(directories.GENRE_FREQS_TRAIN)
 allFreqsTrain = getObject(directories.ALL_FREQS_TRAIN)
 
-#print genreSongsVal.keys()
-
+x=1
 results = classify(genreSongsVal, createResultMatrix(genreSongsTrain.keys()), numSongs, genreFreqsTrain, allFreqsTrain)
 saveObject(results, directories.RESULTS)
 
