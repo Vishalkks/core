@@ -3,7 +3,7 @@ import time
 from core.main.Constants import directories
 
 from core.main.Util.files import getObject, saveObject
-from prob import classifyGenre
+from core.main.Util.prob import classifyGenre
 
 
 def createResultMatrix(genres):

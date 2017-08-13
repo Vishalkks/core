@@ -1,7 +1,7 @@
 import os
 from nltk.probability import FreqDist
 
-from core.main.Util.files import getGenrePath, saveObject, removeExtension, withoutRock
+from core.main.Util.files import getGenrePath, saveObject, removeExtension, withoutRock, create
 
 from core.main.Constants import directories
 
@@ -12,13 +12,11 @@ def extractData(genres, path):
 	genreSongs = dict()
 	numTokens = dict()
 	numSongs = dict()
-
+	allWords = []
 	for genre in genres:
 		print 'GENRE:', genre
 		genreFreqs[genre] = []
 		genreSongs[genre] = dict()
-		allWords = []
-
 		for dirpath, dirnames, files in os.walk(getGenrePath(path, genre)):
 			genreWords = []
 
@@ -34,7 +32,7 @@ def extractData(genres, path):
 			genreFreqs[genre] = FreqDist(genreWords)
 			numSongs[genre] = len(files)
 
-		allFreqs = FreqDist(allWords)
+	allFreqs = FreqDist(allWords)
 
 	return genreFreqs, genreSongs, allFreqs, numSongs
 
@@ -48,6 +46,7 @@ genreFreqsVal, genreSongsVal, allFreqsVal, numSongsVal = extractData(genres, dir
 genreFreqsTest, genreSongsTest, allFreqsTest, numSongsTest = extractData(genres, directories.PATH_TEST)
 
 
+create(directories.PICKLE_DIR)
 saveObject(genreFreqsTrain, directories.GENRE_FREQS_TRAIN)
 saveObject(genreFreqsVal, directories.GENRE_FREQS_VAL)
 saveObject(genreFreqsTest, directories.GENRE_FREQS_TEST)
