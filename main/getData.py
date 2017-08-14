@@ -23,11 +23,12 @@ def extractData(genres, path):
 			for file in files:
 				print file
 				song = open(dirpath + "/" + file)
+				words = []
 				for line in song.readlines():
-					words = line.split(' ')
-					genreSongs[genre][removeExtension(file)] = words
-					genreWords += words
-					allWords += words
+					words += line.split(' ')
+				genreSongs[genre][removeExtension(file)] = words
+				genreWords += words
+				allWords += words
 
 			genreFreqs[genre] = FreqDist(genreWords)
 			numSongs[genre] = len(files)

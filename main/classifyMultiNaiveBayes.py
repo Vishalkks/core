@@ -3,6 +3,7 @@ import time
 from core.main.Constants import directories
 
 from core.main.Util.files import getObject, saveObject
+from core.main.Util.helper import printMatrix
 from core.main.Util.prob import classifyGenre
 
 
@@ -35,5 +36,4 @@ allFreqsTrain = getObject(directories.ALL_FREQS_TRAIN)
 x=1
 results = classify(genreSongsVal, createResultMatrix(genreSongsTrain.keys()), numSongs, genreFreqsTrain, allFreqsTrain)
 saveObject(results, directories.RESULTS)
-
-print results
+printMatrix(results,directories.MATRIX_OUTPUT)

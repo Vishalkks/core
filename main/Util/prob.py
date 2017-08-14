@@ -1,3 +1,4 @@
+import math
 def numTokensAll(freqdist):
 	return sum(numTokens(freqdist, genre) for genre in freqdist)
 
@@ -16,10 +17,7 @@ def genreProb(genre, numSongs):
 
 def tokenProb(token, genre, genreFreqsTrain, allFreqsTrain):
 	if token in genreFreqsTrain[genre]:
-		print token
-		print '\tgen', token in genreFreqsTrain[genre]
-		print '\tall', token in allFreqsTrain
-		return float(genreFreqsTrain[genre][token]/allFreqsTrain[token])
+		return math.log((float(genreFreqsTrain[genre][token]))/float(allFreqsTrain[token]))
 	else:
 		return 0.0
 
@@ -33,4 +31,4 @@ def MNBProb(songWords, genre, numSongs, genreFreqsTrain, allFreqsTrain):
 
 
 def classifyGenre(songWords, genres, numSongs, genreFreqsTrain, allFreqsTrain):
-	return max([(g, 1 + MNBProb(songWords, g, numSongs, genreFreqsTrain, allFreqsTrain)) for g in genres], key=lambda x: x[1])[0]
+	return max([(g, MNBProb(songWords, g, numSongs, genreFreqsTrain, allFreqsTrain)) for g in genres], key=lambda x: x[1])[0]
