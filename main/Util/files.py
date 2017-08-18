@@ -7,6 +7,7 @@ def getGenrePath(dir, genre):
 
 
 def saveObject(obj, filename):
+	print 'saving...'
 	with open(filename, 'wb') as output:
 		pickle.dump(obj, output, pickle.HIGHEST_PROTOCOL)
 

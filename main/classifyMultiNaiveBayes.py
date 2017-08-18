@@ -4,7 +4,7 @@ from core.main.Constants import directories
 
 from core.main.Util.files import getObject, saveObject
 from core.main.Util.helper import printMatrix
-from core.main.Util.prob import classifyGenre
+from core.main.Util.prob import classifyGenre, getProbs, classifyGenreSong
 
 
 def createResultMatrix(genres):
@@ -16,6 +16,8 @@ def createResultMatrix(genres):
 	return matrix
 
 
+
+
 def classify(genreSongs, results, numSongs, genreFreqsTrain, allFreqsTrain):
 	for genreName in genreSongs.keys():
 		print 'GENRE:', genreName
@@ -23,7 +25,9 @@ def classify(genreSongs, results, numSongs, genreFreqsTrain, allFreqsTrain):
 		for song in genre:
 			songWords = genre[song]
 			print song, len(songWords)
-			pred = classifyGenre(songWords, genreSongs.keys(), numSongs, genreFreqsTrain, allFreqsTrain)
+			#pred = classifyGenre(songWords, genreSongs.keys(), numSongs, genreFreqsTrain, allFreqsTrain)
+			allProbs = getProbs(songWords, genreSongs.keys(), numSongs, genreFreqsTrain, allFreqsTrain)
+			pred = classifyGenreSong(songWords, genreSongs.keys(), genreFreqsTrain, allFreqsTrain)
 			results[genreName][pred] += 1
 	return results
 

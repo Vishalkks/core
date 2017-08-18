@@ -43,20 +43,22 @@ genres = os.listdir(directories.LYRICS_DIR)
 
 
 genreFreqsTrain, genreSongsTrain, allFreqsTrain, numSongsTrain = extractData(genres, directories.PATH_TRAIN)
-genreFreqsVal, genreSongsVal, allFreqsVal, numSongsVal = extractData(genres, directories.PATH_VAL)
-genreFreqsTest, genreSongsTest, allFreqsTest, numSongsTest = extractData(genres, directories.PATH_TEST)
-
-
-create(directories.PICKLE_DIR)
 saveObject(genreFreqsTrain, directories.GENRE_FREQS_TRAIN)
-saveObject(genreFreqsVal, directories.GENRE_FREQS_VAL)
-saveObject(genreFreqsTest, directories.GENRE_FREQS_TEST)
 saveObject(genreSongsTrain, directories.GENRE_SONGS_TRAIN)
-saveObject(genreSongsVal, directories.GENRE_SONGS_VAL)
-saveObject(genreSongsTest, directories.GENRE_SONGS_TEST)
 saveObject(allFreqsTrain, directories.ALL_FREQS_TRAIN)
-saveObject(allFreqsVal, directories.ALL_FREQS_VAL)
-saveObject(allFreqsTest, directories.ALL_FREQS_TEST)
 saveObject(numSongsTrain, directories.NUM_SONGS_TRAIN)
+
+genreFreqsVal, genreSongsVal, allFreqsVal, numSongsVal = extractData(genres, directories.PATH_VAL)
+saveObject(genreFreqsVal, directories.GENRE_FREQS_VAL)
+saveObject(genreSongsVal, directories.GENRE_SONGS_VAL)
+saveObject(allFreqsVal, directories.ALL_FREQS_VAL)
 saveObject(numSongsVal, directories.NUM_SONGS_VAL)
+
+genreFreqsTest, genreSongsTest, allFreqsTest, numSongsTest = extractData(genres, directories.PATH_TEST)
+create(directories.PICKLE_DIR)
+saveObject(genreFreqsTest, directories.GENRE_FREQS_TEST)
+saveObject(genreSongsTest, directories.GENRE_SONGS_TEST)
+saveObject(allFreqsTest, directories.ALL_FREQS_TEST)
 saveObject(numSongsTest, directories.NUM_SONGS_TEST)
+
+print 'done'
