@@ -1,13 +1,12 @@
 import os
 from nltk.probability import FreqDist
 
-from core.main.Util.files import getGenrePath, saveObject, removeExtension, withoutRock, create
+from core.main.Util.files import getGenrePath, saveJSONObject, removeExtension, withoutRock, create
 
 from core.main.Constants import directories
 
 
 def extractData(genres, path):
-
 	genreFreqs = dict()
 	genreSongs = dict()
 	numTokens = dict()
@@ -41,24 +40,23 @@ def extractData(genres, path):
 logfile = open(directories.LOG_PATH, 'w+')
 genres = os.listdir(directories.LYRICS_DIR)
 
-
+create(directories.PICKLE_DIR)
 genreFreqsTrain, genreSongsTrain, allFreqsTrain, numSongsTrain = extractData(genres, directories.PATH_TRAIN)
-saveObject(genreFreqsTrain, directories.GENRE_FREQS_TRAIN)
-saveObject(genreSongsTrain, directories.GENRE_SONGS_TRAIN)
-saveObject(allFreqsTrain, directories.ALL_FREQS_TRAIN)
-saveObject(numSongsTrain, directories.NUM_SONGS_TRAIN)
+saveJSONObject(genreFreqsTrain, directories.GENRE_FREQS_TRAIN)
+saveJSONObject(genreSongsTrain, directories.GENRE_SONGS_TRAIN)
+saveJSONObject(allFreqsTrain, directories.ALL_FREQS_TRAIN)
+saveJSONObject(numSongsTrain, directories.NUM_SONGS_TRAIN)
 
 genreFreqsVal, genreSongsVal, allFreqsVal, numSongsVal = extractData(genres, directories.PATH_VAL)
-saveObject(genreFreqsVal, directories.GENRE_FREQS_VAL)
-saveObject(genreSongsVal, directories.GENRE_SONGS_VAL)
-saveObject(allFreqsVal, directories.ALL_FREQS_VAL)
-saveObject(numSongsVal, directories.NUM_SONGS_VAL)
+saveJSONObject(genreFreqsVal, directories.GENRE_FREQS_VAL)
+saveJSONObject(genreSongsVal, directories.GENRE_SONGS_VAL)
+saveJSONObject(allFreqsVal, directories.ALL_FREQS_VAL)
+saveJSONObject(numSongsVal, directories.NUM_SONGS_VAL)
 
 genreFreqsTest, genreSongsTest, allFreqsTest, numSongsTest = extractData(genres, directories.PATH_TEST)
-create(directories.PICKLE_DIR)
-saveObject(genreFreqsTest, directories.GENRE_FREQS_TEST)
-saveObject(genreSongsTest, directories.GENRE_SONGS_TEST)
-saveObject(allFreqsTest, directories.ALL_FREQS_TEST)
-saveObject(numSongsTest, directories.NUM_SONGS_TEST)
+saveJSONObject(genreFreqsTest, directories.GENRE_FREQS_TEST)
+saveJSONObject(genreSongsTest, directories.GENRE_SONGS_TEST)
+saveJSONObject(allFreqsTest, directories.ALL_FREQS_TEST)
+saveJSONObject(numSongsTest, directories.NUM_SONGS_TEST)
 
 print 'done'
