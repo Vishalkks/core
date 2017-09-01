@@ -9,13 +9,13 @@ def precision(matrix, genre):
 		return truePositives / allPositives
 
 
-def printAllPrecisions(matrix):
+def printAllPrecisions(matrix, filename):
+	f = open(filename, "w+")
 	for genre in matrix.keys():
-		print 'Genre:', genre, 'P:', precision(matrix, genre)
-
-
-def precisionForAll():
-	pass
+		print 'Genre:', genre, 'Precision:', precision(matrix, genre)
+		f.write('Genre:' + str(genre) + 'Precision:' + str(precision(matrix, genre)) + '\n')
+	print 'Average Precision:', avgPrecision(matrix)
+	f.write('Average Precision:' + str(avgPrecision(matrix)))
 
 
 def recall(matrix, genre):
@@ -29,10 +29,21 @@ def recall(matrix, genre):
 		return truePositives / allPositives
 
 
-def printAllRecalls(matrix):
+def printAllRecalls(matrix, filename):
+	f = open(filename, "w+")
+
 	for genre in matrix.keys():
-		print 'Genre:', genre, 'R:', recall(matrix, genre)
+		print 'Genre:', genre, 'Recall:', recall(matrix, genre)
+		f.write(str('Genre:' + genre + 'Recall:' + str(recall(matrix, genre))) + '\n')
+	print 'Average Recall:', avgRecall(matrix)
+	f.write('Average Recall:' + str(avgRecall(matrix)))
 
 
-def recallForAll():
-	pass
+def avgPrecision(matrix):
+	li = [precision(matrix, genre) for genre in matrix.keys()]
+	return float(sum(li))/float(len(li))
+
+
+def avgRecall(matrix):
+	li = [recall(matrix, genre) for genre in matrix.keys()]
+	return float(sum(li))/float(len(li))

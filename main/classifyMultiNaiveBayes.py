@@ -3,9 +3,10 @@ import os
 from core.main.Constants import directories
 
 from core.main.Util.helper import printMatrix
-from core.main.Util.prob import classifyGenre
+from core.main.Util.prob import classifyGenre, classifyGenreSong
 from files import getJSONObject, saveJSONObject, getGenrePath
 from metrics import printAllRecalls, printAllPrecisions
+from timing import timer
 
 
 def createResultMatrix(genres):
@@ -28,7 +29,8 @@ def classify(path, genres, results, numSongs, genreFreqsTrain, allFreqsTrain):
 					words += line.split(' ')
 				songWords = words
 				print file, len(songWords)
-				pred = classifyGenre(songWords, genres, numSongs, genreFreqsTrain, allFreqsTrain)
+				#pred = classifyGenre(songWords, genres, numSongs, genreFreqsTrain, allFreqsTrain)
+				pred = classifyGenreSong(songWords, genres, genreFreqsTrain, allFreqsTrain)
 				results[genre][pred] += 1
 	return results
 
@@ -43,5 +45,5 @@ results = classify(path, genres, createResultMatrix(genres), numSongs, genreFreq
 saveJSONObject(results, directories.RESULTS)
 printMatrix(results, directories.MATRIX_OUTPUT)
 
-printAllPrecisions(results)
-printAllRecalls(results)
+printAllPrecisions(results, directories.PREC_OUTPUT)
+printAllRecalls(results, directories.REC_OUTPUT)

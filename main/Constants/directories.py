@@ -1,7 +1,7 @@
 PATH_TRAIN = '../../data/Lyrics/Training'
 PATH_VAL = '../../data/Lyrics/Validation'
 PATH_TEST = '../../data/Lyrics/Test'
-LYRICS_DIR = '../../data/Genre7'
+LYRICS_DIR = '../../data/Genre9'
 LOG_PATH = '../../data/log.txt'
 PICKLE_DIR = '../../data/objects'
 
@@ -36,3 +36,5 @@ NUM_SONGS_TEST = '../../data/objects/numSongsTest.json'
 RESULTS = '../../data/objects/results.json'
 
 MATRIX_OUTPUT = '../../data/output/confusionMatrix.txt'
+PREC_OUTPUT = '../../data/output/precision.txt'
+REC_OUTPUT = '../../data/output/recall.txt'
