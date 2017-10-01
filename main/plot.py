@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-import pylab
+import math
 
 from Constants import directories
 from files import getJSONObject
@@ -17,9 +17,10 @@ data = map(lambda x:x[1], sorted([(g,len(genreFreqsTrain[g])) for g in genreFreq
 matrixSum = sum(columns)
 
 print columns
+columns = [math.log(c) for c in columns]
 print data
 
 plt.plot(data, columns, 'ro')
 plt.xlabel('amount of data')
-plt.ylabel('number of times classified')
+plt.ylabel('log number of times classified')
 plt.show()
