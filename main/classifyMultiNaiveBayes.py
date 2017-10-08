@@ -1,10 +1,12 @@
-import time
+import os
 
 from core.main.Constants import directories
 
-from core.main.Util.files import getObject, saveObject
 from core.main.Util.helper import printMatrix
-from core.main.Util.prob import classifyGenre
+from core.main.Util.prob import classifyGenre, classifyGenreSong
+from files import getJSONObject, saveJSONObject, getGenrePath
+from metrics import printAllRecalls, printAllPrecisions
+from timing import timer
 
 
 def createResultMatrix(genres):
@@ -15,25 +17,33 @@ def createResultMatrix(genres):
 			matrix[genre][compGenre] = 0
 	return matrix
 
-
-def classify(genreSongs, results, numSongs, genreFreqsTrain, allFreqsTrain):
-	for genreName in genreSongs.keys():
-		print 'GENRE:', genreName
-		genre = genreSongs[genreName]
-		for song in genre:
-			songWords = genre[song]
-			print song, len(songWords)
-			pred = classifyGenre(songWords, genreSongs.keys(), numSongs, genreFreqsTrain, allFreqsTrain)
-			results[genreName][pred] += 1
+@timer
+def classify(path, genres, results, numSongs, genreFreqsTrain, allFreqsTrain):
+	for genre in genres:
+		print 'GENRE:', genre
+		for dirpath, dirnames, files in os.walk(getGenrePath(path, genre)):
+			for file in files:
+				song = open(dirpath + "/" + file)
+				words = []
+				for line in song.readlines():
+					words += line.split(' ')
+				songWords = words
+				print file, len(songWords)
+				#pred = classifyGenre(songWords, genres, numSongs, genreFreqsTrain, allFreqsTrain)
+				pred = classifyGenreSong(songWords, genres, genreFreqsTrain, allFreqsTrain)
+				results[genre][pred] += 1
 	return results
 
-genreSongsTrain = getObject(directories.GENRE_SONGS_TRAIN)
-genreSongsVal = getObject(directories.GENRE_SONGS_VAL)
-numSongs = getObject(directories.NUM_SONGS_TRAIN)
-genreFreqsTrain = getObject(directories.GENRE_FREQS_TRAIN)
-allFreqsTrain = getObject(directories.ALL_FREQS_TRAIN)
+numSongs = getJSONObject(directories.NUM_SONGS_TRAIN)
+genreFreqsTrain = getJSONObject(directories.GENRE_FREQS_TRAIN)
+allFreqsTrain = getJSONObject(directories.ALL_FREQS_TRAIN)
 
-x=1
-results = classify(genreSongsVal, createResultMatrix(genreSongsTrain.keys()), numSongs, genreFreqsTrain, allFreqsTrain)
-saveObject(results, directories.RESULTS)
-printMatrix(results,directories.MATRIX_OUTPUT)
+genres = os.listdir(directories.LYRICS_DIR)
+path = directories.PATH_VAL
+
+results = classify(path, genres, createResultMatrix(genres), numSongs, genreFreqsTrain, allFreqsTrain)
+saveJSONObject(results, directories.RESULTS)
+printMatrix(results, directories.MATRIX_OUTPUT)
+
+printAllPrecisions(results, directories.PREC_OUTPUT)
+printAllRecalls(results, directories.REC_OUTPUT)

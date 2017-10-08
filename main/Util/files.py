@@ -1,19 +1,36 @@
 import os
-import pickle
+import cPickle as pickle
+#import json
+import ujson as json
+
+from timing import timer
 
 
 def getGenrePath(dir, genre):
 	return dir + '/' + genre
 
 
-def saveObject(obj, filename):
+def savePKLObject(obj, filename):
+	print 'saving...'
 	with open(filename, 'wb') as output:
 		pickle.dump(obj, output, pickle.HIGHEST_PROTOCOL)
 
 
-def getObject(filename):
+def saveJSONObject(obj, filename):
+	print 'saving...'
+	with open(filename, 'wb') as output:
+		json.dump(obj, output)
+
+
+def getPKLObject(filename):
 	with open(filename, 'rb') as fp:
 		return pickle.load(fp)
+
+
+@timer
+def getJSONObject(filename):
+	with open(filename, 'rb') as fp:
+		return json.load(fp)
 
 
 def removeExtension(string):
