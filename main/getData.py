@@ -1,15 +1,14 @@
 import os
+import sys
 from nltk.probability import FreqDist
 
-from core.main.Util.files import getGenrePath, saveJSONObject, removeExtension, withoutRock, create
+from core.main.Util.files import getGenrePath, saveJSONObject, create
 
 from core.main.Constants import directories
 
 
 def extractData(genres, path):
 	genreFreqs = dict()
-	genreSongs = dict()
-	numTokens = dict()
 	numSongs = dict()
 	allWords = []
 	for genre in genres:
@@ -34,15 +33,19 @@ def extractData(genres, path):
 
 	return genreFreqs, allFreqs, numSongs
 
+sys.setrecursionlimit(10000)
 
 logfile = open(directories.LOG_PATH, 'w+')
 genres = os.listdir(directories.LYRICS_DIR)
 
+x=1
+saveJSONObject(x, 'x.json')
+
 create(directories.PICKLE_DIR)
 genreFreqsTrain, allFreqsTrain, numSongsTrain = extractData(genres, directories.PATH_TRAIN)
-saveJSONObject(genreFreqsTrain, directories.GENRE_FREQS_TRAIN)
-saveJSONObject(allFreqsTrain, directories.ALL_FREQS_TRAIN)
 saveJSONObject(numSongsTrain, directories.NUM_SONGS_TRAIN)
+saveJSONObject(allFreqsTrain, directories.ALL_FREQS_TRAIN)
+saveJSONObject(genreFreqsTrain, directories.GENRE_FREQS_TRAIN)
 
 genreFreqsVal, allFreqsVal, numSongsVal = extractData(genres, directories.PATH_VAL)
 saveJSONObject(genreFreqsVal, directories.GENRE_FREQS_VAL)

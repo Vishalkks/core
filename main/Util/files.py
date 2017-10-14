@@ -1,7 +1,7 @@
 import os
 import cPickle as pickle
-#import json
 import ujson as json
+#import simplejson as json
 
 from timing import timer
 
@@ -19,7 +19,7 @@ def savePKLObject(obj, filename):
 def saveJSONObject(obj, filename):
 	print 'saving...'
 	with open(filename, 'wb') as output:
-		json.dump(obj, output)
+		json.dump(obj, output, ensure_ascii=False)
 
 
 def getPKLObject(filename):

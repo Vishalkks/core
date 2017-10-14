@@ -5,6 +5,8 @@ from shutil import copyfile
 from core.main.Constants import directories
 from core.main.Util.files import getGenrePath, create, writeToLog
 
+#divides the dataset into training, validation, and testing.
+
 
 def moveFiles(li, path, logfile):
 	for lyr in li:
