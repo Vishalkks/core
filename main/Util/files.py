@@ -1,8 +1,9 @@
 import os
 import cPickle as pickle
-#import json
 import ujson as json
+from shutil import copyfile
 
+from Constants.values import GENRES
 from timing import timer
 
 
@@ -47,8 +48,48 @@ def writeToLog(logfile, message):
 	logfile.write(message)
 
 
-def withoutRock(genres):
-	return [g for g in genres if g != 'Rock']
+def withoutRock():
+	return [g for g in GENRES if g != 'Rock']
 
 
+def moveFiles(li, path, logfile):
+	for lyr in li:
+		print lyr
+		try:
+			copyfile(lyr, path + '/' + lyr.split('/')[-1])
+		except IOError:
+			writeToLog(logfile, "Could not write:" + lyr +"\n")
 
+
+def partitionFiles(trainDir, testDir, valDir, originalDir, logfile):
+	for genre in GENRES:
+		print genre
+		lyrics = []
+
+		genTrain = getGenrePath(trainDir, genre)
+		genTest = getGenrePath(testDir, genre)
+		genVal = getGenrePath(valDir, genre)
+		artists = getGenrePath(originalDir, genre)
+
+		#print 'here'
+		create(genTrain)
+		create(genTest)
+		create(genVal)
+
+		#print 'here2'
+		for dirpath, dirnames, files in os.walk(artists):
+			for file in files:
+				lyrics.append(dirpath + '/' + file)
+
+		random.shuffle(lyrics)
+		train = lyrics[:int(len(lyrics)*0.6)]
+		test = lyrics[int(len(lyrics)*0.6):int(len(lyrics)*0.8)]
+		val = lyrics[int(len(lyrics)*0.8):]
+
+		#print 'here3'
+		moveFiles(train, genTrain, logfile)
+		#print '\tdone'
+		moveFiles(test, genTest, logfile)
+		#print '\tdone'
+		moveFiles(val, genVal, logfile)
+		#print '\tdone'
