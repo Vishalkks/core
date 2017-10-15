@@ -2,15 +2,19 @@ import os
 
 
 def addRelPath(string):
-	cwd = os.getcwd()
-	dir = cwd.split("\\")[-1].split('/')[-1]
+	return '../../' + string
 
-	if dir in ['main', 'test']:
-		return '../../' + string
-	elif dir in ['Constants', 'Scraping', 'Util']:
-		return '../../../' + string
-	else:
-		print 'Error for:', dir
+	#cwd = os.getcwd()
+	#dir = cwd.split("\\")[-1].split('/')[-1]
+
+
+	#if dir in ['main', 'test']:
+	#	return '../../' + string
+	#elif dir in ['Constants', 'Scraping', 'Util', 'lib', 'Printing']:
+	#	return '../../../' + string
+	#else:
+	#	print 'Error for:', dir
+	#'''
 
 PATH_TRAIN = addRelPath('data/Lyrics/Training')
 PATH_VAL = addRelPath('data/Lyrics/Validation')

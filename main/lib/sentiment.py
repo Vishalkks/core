@@ -14,8 +14,9 @@ def getSentimentVector(words):
 	sentiment = getJSONObject(directories.SENTIMENT)
 
 	for word in words:
-		for sent in sentiment[word]:
-			sentVec[sent] += 1
+		if word in sentiment:
+			for sent in sentiment[word]:
+				sentVec[sent] += 1
 
 	return sentVec
 

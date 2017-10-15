@@ -28,7 +28,7 @@ def getPKLObject(filename):
 		return pickle.load(fp)
 
 
-@timer
+#@timer
 def getJSONObject(filename):
 	with open(filename, 'rb') as fp:
 		return json.load(fp)
