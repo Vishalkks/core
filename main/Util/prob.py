@@ -1,5 +1,7 @@
 import math
 
+from Constants.values import GENRES
+
 
 def numTokensAll(freqdist):
 	return sum(numTokens(freqdist, genre) for genre in freqdist)
@@ -32,15 +34,15 @@ def MNBProb(songWords, genre, numSongs, genreFreqsTrain, allFreqsTrain):
 	return songProb(songWords, genre, genreFreqsTrain, allFreqsTrain)*genreProb(genre, numSongs)
 
 
-def classifyGenre(songWords, genres, numSongs, genreFreqsTrain, allFreqsTrain):
-	genrePreds = [(g, MNBProb(songWords, g, numSongs, genreFreqsTrain, allFreqsTrain)) for g in genres]
+def classifyGenre(songWords, numSongs, genreFreqsTrain, allFreqsTrain):
+	genrePreds = [(g, MNBProb(songWords, g, numSongs, genreFreqsTrain, allFreqsTrain)) for g in GENRES]
 	return max(genrePreds, key=lambda x: x[1])[0]
 
 
-def classifyGenreSong(songWords, genres, genreFreqsTrain, allFreqsTrain):
-	genrePreds = [(g, songProb(songWords, g, genreFreqsTrain, allFreqsTrain)) for g in genres]
+def classifyGenreSong(songWords, genreFreqsTrain, allFreqsTrain):
+	genrePreds = [(g, songProb(songWords, g, genreFreqsTrain, allFreqsTrain)) for g in GENRES]
 	return max(genrePreds, key=lambda x: x[1])[0]
 
 
-def getProbs(songWords, genres, numSongs, genreFreqsTrain, allFreqsTrain):
-	return [(g, songProb(songWords, g, genreFreqsTrain, allFreqsTrain), genreProb(g, numSongs), MNBProb(songWords, g, numSongs, genreFreqsTrain, allFreqsTrain)) for g in genres]
+def getProbs(songWords, numSongs, genreFreqsTrain, allFreqsTrain):
+	return [(g, songProb(songWords, g, genreFreqsTrain, allFreqsTrain), genreProb(g, numSongs), MNBProb(songWords, g, numSongs, genreFreqsTrain, allFreqsTrain)) for g in GENRES]
