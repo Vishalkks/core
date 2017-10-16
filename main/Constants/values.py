@@ -1,7 +1,7 @@
 SENTS = ['anger', 'anticipation', 'disgust', 'fear', 'joy', 'negative', 'positive', 'sadness', 'surprise', 'trust', 'none']
 
-SENT_NUMBER = {'anger' : 0, 'anticipation' : 1, 'disgust' : 2, 'fear' : 3, 'joy' : 4, 'negative' : 5, 'positive' : 6,
-			'sadness' : 7, 'surprise' : 8, 'trust' : 8, 'none' : 9}
+SENT_NUMBER = {'anger': 0, 'anticipation' : 1, 'disgust' : 2, 'fear' : 3, 'joy' : 4, 'negative' : 5, 'positive' : 6,
+			'sadness' : 7, 'surprise' : 8, 'trust' : 9, 'none' : 10}
 
 NUM_SENTS = 11
 

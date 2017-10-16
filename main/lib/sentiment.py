@@ -46,13 +46,11 @@ def extractSentiment(file):
 
 		if word not in sentDict:
 			sentDict[word] = []
-			#sentDict[word]['none'] = 1
 			sentDict[word].append('none')
 		if val == 1:
-			#sentDict[word][sent] = 1
-			#sentDict[word].pop('none', None)
 			if 'none' in sentDict[word]:
 				sentDict[word].remove('none')
 			sentDict[word].append(sent)
 
 	return sentDict
+
