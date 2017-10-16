@@ -1,24 +1,38 @@
 from Constants import directories, values
+from Constants.values import NUM_SENTS, SENT_NUMBER
 from files import getJSONObject
 
 
-def newSentVector():
+def newSentDict():
 	sentDict = dict()
 	for sent in values.SENTS:
 		sentDict[sent] = 0
 	return sentDict
 
 
-def getSentimentVector(words):
-	sentVec = newSentVector()
+def getSentimentCount(words):
+	sentCount = newSentDict()
 	sentiment = getJSONObject(directories.SENTIMENT)
 
 	for word in words:
 		if word in sentiment:
 			for sent in sentiment[word]:
-				sentVec[sent] += 1
+				sentCount[sent] += 1
+
+	return sentCount
+
+
+def getSentimentVector(words):
+	sentVec = [0]*NUM_SENTS
+	sentiment = getJSONObject(directories.SENTIMENT)
+
+	for word in words:
+		if word in sentiment:
+			for sent in sentiment[word]:
+				sentVec[SENT_NUMBER[sent]] += 1
 
 	return sentVec
+
 
 def extractSentiment(file):
 	print file

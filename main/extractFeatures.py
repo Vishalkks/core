@@ -3,6 +3,10 @@ from files import saveJSONObject
 from lib.learn import createFeatureMatrix
 
 
-features, labels = createFeatureMatrix(path=directories.PATH_TRAIN)
-saveJSONObject(features, directories.FEATURE_MATRIX)
-saveJSONObject(labels, directories.LABELS)
+featuresTrain, labelsTrain = createFeatureMatrix(path=directories.PATH_TRAIN)
+saveJSONObject(featuresTrain, directories.FEATURE_MATRIX_TRAIN)
+saveJSONObject(labelsTrain, directories.LABELS_TRAIN)
+
+featuresVal, labelsVal = createFeatureMatrix(path=directories.PATH_VAL)
+saveJSONObject(featuresVal, directories.FEATURE_MATRIX_VAL)
+saveJSONObject(labelsVal, directories.LABELS_VAL)
