@@ -6,14 +6,14 @@ from files import getJSONObject
 from printing import printMatrix
 
 genreFreqsTrain = getJSONObject(directories.GENRE_FREQS_TRAIN)
-results = getJSONObject(directories.RESULTS)
+confMatrix = getJSONObject(directories.CONFUSION_MATRIX)
 
-columns = map(lambda x:x[1], sorted([(g,sum([results[genre][g] for genre in results.keys()])) for g in results.keys()]))
+columns = map(lambda x:x[1], sorted([(g,sum([confMatrix[genre][g] for genre in confMatrix.keys()])) for g in confMatrix.keys()]))
 columns = [math.log(c) for c in columns]
 data = map(lambda x:x[1], sorted([(g,len(genreFreqsTrain[g])) for g in genreFreqsTrain.keys()]))
 matrixSum = sum(columns)
 
-printMatrix(results, directories.MATRIX_OUTPUT)
+printMatrix(confMatrix, directories.MATRIX_OUTPUT)
 print data
 
 plt.plot(data, columns, 'ro')

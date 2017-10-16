@@ -3,8 +3,8 @@ from files import getJSONObject
 from printing import printMatrix
 from lib.metrics import printAllPrecisions, printAllRecalls
 
-results = getJSONObject(directories.RESULTS)
-printMatrix(results, directories.MATRIX_OUTPUT)
+confMatrix = getJSONObject(directories.CONFUSION_MATRIX)
+printMatrix(confMatrix, directories.MATRIX_OUTPUT)
 
-printAllPrecisions(results)
-printAllRecalls(results)
+printAllPrecisions(confMatrix)
+printAllRecalls(confMatrix)

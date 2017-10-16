@@ -5,12 +5,16 @@ from nltk import FreqDist
 from Constants import values
 from Constants.values import GENRES
 from files import getGenrePath
-from lib.sentiment import getSentimentVector
+from lib.sentiment import getSentimentVector, getSentimentCount
 from prob import classifyGenreSong
 from timing import timer
 
 
 def createFeatureMatrix(path):
+	print path
+	print os.getcwd()
+	print os.path.abspath(path)
+	print os.listdir(path)
 	features, labels = [], []
 	for genre in GENRES:
 		print 'GENRE:', genre
@@ -19,22 +23,31 @@ def createFeatureMatrix(path):
 				song = open(dirpath + "/" + file)
 				words = []
 				lineLengths = []
+				lines = 0
 				for line in song.readlines():
 					words += line.split(' ')
-					lineLengths += len(words)
+					lineLengths.append(len(words))
+					lines += 1
+
 				length = len(words)
-				avgLen = sum([len(word) for word in words])/len(words)
-				lines = len(song.readlines())
-				avgLineLength = sum([lineLen for lineLen in lineLengths])/len(lineLengths)
+				if length != 0:
+					avgLen = sum([len(word) for word in words])/length
+				else:
+					avgLen = 0
+				if lines != 0:
+					avgLineLength = sum([lineLen for lineLen in lineLengths])/lines
+				else:
+					avgLineLength = 0
+				titleLen = len(file.split(" "))
 				sentVec = getSentimentVector(words)
 
-				row = [length, lines, avgLineLength, avgLen]
+				row = [length, lines, avgLineLength, avgLen, titleLen]
 				row += sentVec
 				features.append(row)
 				labels.append(values.GEN_NUMBER[genre])
 				print file, len(words)
 
-	return np.array(features), np.array(labels)
+	return np.array(features, dtype=float), np.array(labels, dtype=float)
 
 
 @timer

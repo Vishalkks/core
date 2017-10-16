@@ -6,6 +6,10 @@ def is_asciiList(li):
 	return all(is_ascii(w) for w in li)
 
 
+def isNotEmpty(li):
+	return len(li)
+
+
 def punctuate(string):
 	string = string.replace("__backslash__", "\\")
 	string = string.replace("__forwardslash__", "/")
