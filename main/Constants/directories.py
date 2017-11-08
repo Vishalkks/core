@@ -1,5 +1,6 @@
 import os
 
+from Constants.values import GENRES
 
 PATH_TRAIN = '../../data/Lyrics/Training'
 PATH_VAL = '../../data/Lyrics/Validation'
@@ -9,6 +10,15 @@ LOG_PATH = '../../data/log.txt'
 PICKLE_DIR = '../../data/objects'
 SENTIMENT_FILE = '../../data/NRC-Sentiment-Emotion-Lexicons/Lexicons/NRC-Emotion-Lexicon-v0.92/' \
 				 'NRC-Emotion-Lexicon-Wordlevel-v0.92.txt'
+SPANISH_WORD_FILE = '../../data/espanol/espanol.txt'
+GERMAN_WORD_FILE = '../../data/deutsch/deutsch.txt'
+FRENCH_WORD_FILE = '../../data/francais/francais.txt'
+#SPANISH_WORD_FILE = '../../data/espanol/espanol.rst'
+#SPANISH_WORD_FILE = '../../data/Genre13/Samba/Adriana_Calcanhotto/Esquadros.txt'
+
+SPANISH_WORD_SET = '../../data/objects/spanishWords.json'
+GERMAN_WORD_SET = '../../data/objects/germanWords.json'
+FRENCH_WORD_SET = '../../data/objects/frenchWords.json'
 
 ALL_FREQS_TRAIN = '../../data/objects/allFreqsTrain.json'
 ALL_FREQS_VAL = '../../data/objects/allFreqsVal.json'
@@ -37,3 +47,12 @@ LABELS_TEST = '../../data/objects/labelsTest.json'
 MATRIX_OUTPUT = '../../data/output/confusionMatrix.txt'
 PREC_OUTPUT = '../../data/output/precision.txt'
 REC_OUTPUT = '../../data/output/recall.txt'
+
+
+LYRICS_DIR_TRAIN = '../../data/objects/lyrics/train'
+LYRICS_DIR_VAL = '../../data/objects/lyrics/val'
+LYRICS_DIR_TEST = '../../data/objects/lyrics/test'
+
+LYRICS_TRAIN = {genre: LYRICS_DIR_TRAIN + '/' + genre + '.json' for genre in GENRES}
+LYRICS_VAL = {genre: LYRICS_DIR_VAL + '/' + genre + '.json' for genre in GENRES}
+LYRICS_TEST = {genre: LYRICS_DIR_TEST + '/' + genre + '.json' for genre in GENRES}

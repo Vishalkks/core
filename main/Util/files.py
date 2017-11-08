@@ -1,6 +1,7 @@
 import os
 import cPickle as pickle
-import ujson as json
+#import ujson as json
+import simplejson as json
 from shutil import copyfile
 
 from Constants.values import GENRES
@@ -20,7 +21,7 @@ def savePKLObject(obj, filename):
 def saveJSONObject(obj, filename):
 	print 'saving...'
 	with open(filename, 'wb') as output:
-		json.dump(obj, output)
+		json.dump(obj, output, indent=4, sort_keys=True)
 
 
 def getPKLObject(filename):
@@ -31,7 +32,8 @@ def getPKLObject(filename):
 #@timer
 def getJSONObject(filename):
 	with open(filename, 'rb') as fp:
-		return json.load(fp)
+		print filename
+		return json.load(fp, ensure)
 
 
 def removeExtension(string):
