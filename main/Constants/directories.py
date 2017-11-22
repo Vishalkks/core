@@ -5,6 +5,9 @@ from Constants.values import GENRES
 PATH_TRAIN = '../../data/Lyrics/Training'
 PATH_VAL = '../../data/Lyrics/Validation'
 PATH_TEST = '../../data/Lyrics/Test'
+
+LYRIC_PATH = {'train': PATH_TRAIN, 'val': PATH_VAL, 'test': PATH_TEST}
+
 LYRICS_DIR = '../../data/Genre13'
 LOG_PATH = '../../data/log.txt'
 PICKLE_DIR = '../../data/objects'
@@ -13,8 +16,6 @@ SENTIMENT_FILE = '../../data/NRC-Sentiment-Emotion-Lexicons/Lexicons/NRC-Emotion
 SPANISH_WORD_FILE = '../../data/espanol/espanol.txt'
 GERMAN_WORD_FILE = '../../data/deutsch/deutsch.txt'
 FRENCH_WORD_FILE = '../../data/francais/francais.txt'
-#SPANISH_WORD_FILE = '../../data/espanol/espanol.rst'
-#SPANISH_WORD_FILE = '../../data/Genre13/Samba/Adriana_Calcanhotto/Esquadros.txt'
 
 SPANISH_WORD_SET = '../../data/objects/spanishWords.json'
 GERMAN_WORD_SET = '../../data/objects/germanWords.json'
@@ -49,10 +50,56 @@ PREC_OUTPUT = '../../data/output/precision.txt'
 REC_OUTPUT = '../../data/output/recall.txt'
 
 
-LYRICS_DIR_TRAIN = '../../data/objects/lyrics/train'
-LYRICS_DIR_VAL = '../../data/objects/lyrics/val'
-LYRICS_DIR_TEST = '../../data/objects/lyrics/test'
+def addGenre(string, genre):
+	return string + '/' + genre + '.json'
 
-LYRICS_TRAIN = {genre: LYRICS_DIR_TRAIN + '/' + genre + '.json' for genre in GENRES}
-LYRICS_VAL = {genre: LYRICS_DIR_VAL + '/' + genre + '.json' for genre in GENRES}
-LYRICS_TEST = {genre: LYRICS_DIR_TEST + '/' + genre + '.json' for genre in GENRES}
+
+LYRICS_STORE_DIR_TRAIN = '../../data/objects/lyrics/train'
+LYRICS_STORE_DIR_VAL = '../../data/objects/lyrics/val'
+LYRICS_STORE_DIR_TEST = '../../data/objects/lyrics/test'
+
+LYRICS_STORE_TRAIN = {genre: addGenre(LYRICS_STORE_DIR_TRAIN, genre) for genre in GENRES}
+LYRICS_STORE_VAL = {genre: addGenre(LYRICS_STORE_DIR_VAL, genre) for genre in GENRES}
+LYRICS_STORE_TEST = {genre: addGenre(LYRICS_STORE_DIR_TEST, genre) for genre in GENRES}
+
+LYRICS_STORE = {'train': LYRICS_STORE_TRAIN, 'val': LYRICS_STORE_VAL, 'test': LYRICS_STORE_TEST}
+
+BIGRAMS_TOTALITY_DIR_TRAIN = '../../data/objects/ngrams/bigrams/totality/train'
+BIGRAMS_TOTALITY_DIR_VAL = '../../data/objects/ngrams/bigrams/totality/val'
+BIGRAMS_TOTALITY_DIR_TEST = '../../data/objects/ngrams/bigrams/totality/test'
+
+BIGRAMS_TOTALITY_TRAIN = {genre: addGenre(BIGRAMS_TOTALITY_DIR_TRAIN, genre) for genre in GENRES}
+BIGRAMS_TOTALITY_VAL = {genre: addGenre(BIGRAMS_TOTALITY_DIR_VAL, genre) for genre in GENRES}
+BIGRAMS_TOTALITY_TEST = {genre: addGenre(BIGRAMS_TOTALITY_DIR_TEST, genre) for genre in GENRES}
+
+BIGRAMS_TOTALITY = {'train': BIGRAMS_TOTALITY_TRAIN, 'val': BIGRAMS_TOTALITY_VAL, 'test': BIGRAMS_TOTALITY_TEST}
+
+TRIGRAMS_TOTALITY_DIR_TRAIN = '../../data/objects/ngrams/trigrams/totality/train'
+TRIGRAMS_TOTALITY_DIR_VAL = '../../data/objects/ngrams/trigrams/totality/val'
+TRIGRAMS_TOTALITY_DIR_TEST = '../../data/objects/ngrams/trigrams/totality/test'
+
+TRIGRAMS_TOTALITY_TRAIN = {genre: addGenre(TRIGRAMS_TOTALITY_DIR_TRAIN, genre) for genre in GENRES}
+TRIGRAMS_TOTALITY_VAL = {genre: addGenre(TRIGRAMS_TOTALITY_DIR_VAL, genre) for genre in GENRES}
+TRIGRAMS_TOTALITY_TEST = {genre: addGenre(TRIGRAMS_TOTALITY_DIR_TEST, genre) for genre in GENRES}
+
+TRIGRAMS_TOTALITY = {'train': TRIGRAMS_TOTALITY_TRAIN, 'val': TRIGRAMS_TOTALITY_VAL, 'test': TRIGRAMS_TOTALITY_TEST}
+
+BIGRAMS_SONG_STORE_DIR_TRAIN = '../../data/objects/ngrams/bigrams/songs/train'
+BIGRAMS_SONG_STORE_DIR_VAL = '../../data/objects/ngrams/bigrams/songs/val'
+BIGRAMS_SONG_STORE_DIR_TEST = '../../data/objects/ngrams/bigrams/songs/test'
+
+BIGRAMS_SONG_STORE_TRAIN = {genre: addGenre(BIGRAMS_SONG_STORE_DIR_TRAIN, genre) for genre in GENRES}
+BIGRAMS_SONG_STORE_VAL = {genre: addGenre(BIGRAMS_SONG_STORE_DIR_VAL, genre) for genre in GENRES}
+BIGRAMS_SONG_STORE_TEST = {genre: addGenre(BIGRAMS_SONG_STORE_DIR_TEST, genre) for genre in GENRES}
+
+BIGRAMS_SONG_STORE = {'train': BIGRAMS_SONG_STORE_TRAIN, 'val': BIGRAMS_SONG_STORE_VAL, 'test': BIGRAMS_SONG_STORE_TEST}
+
+TRIGRAMS_SONG_STORE_DIR_TRAIN = '../../data/objects/ngrams/trigrams/songs/train'
+TRIGRAMS_SONG_STORE_DIR_VAL = '../../data/objects/ngrams/trigrams/songs/val'
+TRIGRAMS_SONG_STORE_DIR_TEST = '../../data/objects/ngrams/trigrams/songs/test'
+
+TRIGRAMS_SONG_STORE_TRAIN = {genre: addGenre(TRIGRAMS_SONG_STORE_DIR_TRAIN, genre) for genre in GENRES}
+TRIGRAMS_SONG_STORE_VAL = {genre: addGenre(TRIGRAMS_SONG_STORE_DIR_VAL, genre) for genre in GENRES}
+TRIGRAMS_SONG_STORE_TEST = {genre: addGenre(TRIGRAMS_SONG_STORE_DIR_TEST, genre) for genre in GENRES}
+
+TRIGRAMS_SONG_STORE = {'train': TRIGRAMS_SONG_STORE_TRAIN, 'val': TRIGRAMS_SONG_STORE_VAL, 'test': TRIGRAMS_SONG_STORE_TEST}

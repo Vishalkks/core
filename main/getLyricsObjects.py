@@ -1,18 +1,23 @@
-import os
-
 from Constants import directories
 from Constants.values import GENRES
-from files import getJSONObject, getGenrePath, saveJSONObject
-from lib.data import createLyricsObjects
+from Util.files import getLyrics, create, partitionFiles
+from data import createLyricsObjects
 
-trainDir = directories.PATH_TRAIN
-valDir = directories.PATH_VAL
-testDir = directories.PATH_TEST
+lyricsDir = directories.LYRIC_PATH
+lyricsStore = directories.LYRICS_STORE
+bigramTotality = directories.BIGRAMS_TOTALITY
+trigramTotality = directories.TRIGRAMS_TOTALITY
+#bigramSongDict = directories.BIGRAMS_SONG_STORE
+#trigramSongDict = directories.TRIGRAMS_SONG_STORE
 
-lyricsStoreTrain = directories.LYRICS_TRAIN
-lyricsStoreVal = directories.LYRICS_VAL
-lyricsStoreTest = directories.LYRICS_TEST
 
-createLyricsObjects(trainDir, lyricsStoreTrain)
-createLyricsObjects(valDir, lyricsStoreVal)
-createLyricsObjects(testDir, lyricsStoreTest)
+#for key in ['train', 'val', 'test']:
+	#for genre in GENRES:
+		#create(lyricsStore[key][genre])
+		#create(bigramTotality[key][genre])
+		#create(trigramTotality[key][genre])
+
+#partitionFiles(lyricsDir, directories.PATH_TRAIN, directories.PATH_VAL, directories.PATH_TEST, directories.LOG_PATH)
+
+for key in ['train', 'val', 'test']:
+	createLyricsObjects(lyricsDir[key], lyricsStore[key], bigramTotality[key], trigramTotality[key])

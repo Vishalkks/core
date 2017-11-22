@@ -1,6 +1,6 @@
 import os
 
-from nltk import FreqDist
+from nltk import FreqDist, ngrams
 
 from Constants.values import GENRES
 from files import getGenrePath, saveJSONObject
@@ -33,16 +33,16 @@ def getFrequencies(path):
 	return genreFreqs, allFreqs, numSongs
 
 
-
-def createLyricsObjects(path, store):
+def createLyricsObjects(path, lyricstore, bigramStoreTotality, trigramStoreTotality):
 	lyricDict = dict()
 	for genre in GENRES:
-		createGenreLyricsObject(path, store, genre)
+		createGenreLyricsObject(path, lyricstore, bigramStoreTotality, trigramStoreTotality, genre)
 
 
-def createGenreLyricsObject(path, lyricStore, genre):
+def createGenreLyricsObject(path, lyricStore, bigramStoreTotality, trigramStoreTotality, genre):
 	lyricObj = dict()
 	print 'GENRE:', genre
+	allWords = []
 	for dirpath, dirnames, files in os.walk(getGenrePath(path, genre)):
 		for file in files:
 			song = open(dirpath + "/" + file)
@@ -50,10 +50,15 @@ def createGenreLyricsObject(path, lyricStore, genre):
 			for line in song.readlines():
 				words += line.split(' ')
 			lyricObj[file] = words
+			allWords += words
 			#print words
 			song.close()
 
+	bigramWords = ngrams(allWords, 2)
+	trigramWords = ngrams(allWords, 2)
 	saveJSONObject(lyricObj, lyricStore[genre])
+	saveJSONObject(bigramWords, bigramStoreTotality[genre])
+	saveJSONObject(trigramWords, trigramStoreTotality[genre])
 
 
 def getWords(wordFile):

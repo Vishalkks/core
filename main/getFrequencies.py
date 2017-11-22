@@ -2,7 +2,6 @@ from core.main.Util.files import saveJSONObject, create
 
 from core.main.Constants import directories
 from lib.data import getFrequencies
-from lib.learn import evaluateFrequencies
 
 
 create(directories.PICKLE_DIR)
