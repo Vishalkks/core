@@ -18,7 +18,6 @@ def createFeatureMatrix(spanishWords, germanWords, frenchWords, path, lyricStore
 	#print os.listdir(path)
 	features, labels = [], []
 
-	lyrics = getJSONObject(lyricStore['Black_Metal'])
 	for genre in GENRES:
 		print 'GENRE:', genre
 		lyrics = getJSONObject(lyricStore[genre])

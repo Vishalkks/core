@@ -1,7 +1,9 @@
 from Constants import directories
 from Constants.values import GENRES
 from Util.files import getLyrics, create, partitionFiles
-from data import createLyricsObjects
+from lib.data import createLyricsObjects
+from lib.ngrams import saveNgramDists
+
 
 lyricsDir = directories.LYRIC_PATH
 lyricsStore = directories.LYRICS_STORE
@@ -21,3 +23,5 @@ trigramTotality = directories.TRIGRAMS_TOTALITY
 
 for key in ['train', 'val', 'test']:
 	createLyricsObjects(lyricsDir[key], lyricsStore[key], bigramTotality[key], trigramTotality[key])
+	#saveNgramDists(lyricsStore[key], bigramTotality[key], trigramTotality[key])
+

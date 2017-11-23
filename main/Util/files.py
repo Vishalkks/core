@@ -1,3 +1,4 @@
+import codecs
 import os
 import cPickle as pickle
 import random
@@ -23,6 +24,7 @@ def savePKLObject(obj, filename):
 
 def saveJSONObject(obj, filename):
 	print 'saving...'
+	print filename
 	with open(filename, 'wb') as output:
 		json.dump(obj, output, indent=4, sort_keys=True, ensure_ascii=False)
 
@@ -35,7 +37,11 @@ def getPKLObject(filename):
 #@timer
 def getJSONObject(filename):
 	with open(filename, 'rb') as fp:
-		print filename
+		return json.load(fp)
+
+
+def getJSONObjectCodec(filename):
+	with codecs.open(filename, 'rb', encoding='utf8') as fp:
 		return json.load(fp)
 
 
