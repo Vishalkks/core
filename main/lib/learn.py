@@ -4,63 +4,58 @@ from nltk import FreqDist
 
 from Constants import values
 from Constants.values import GENRES
-from files import getGenrePath, getJSONObject
+from core.main.Util.files import getGenrePath, getJSONObject
 from lib.sentiment import getSentimentVector, getSentimentCount
 from lib.spanish import countLangWords
-from prob import classifyGenreSong
-from timing import timer
+from core.main.Util.prob import classifyGenreSong
+from core.main.Util.timing import timer
+
+
+def getLineIndices(words):
+	return [index for index, word in enumerate(words) if '\n' in word]
+
+
+def getAvgLineLen(indices):
+	return [indices[0]] + [x - indices[i-1] for i,x in enumerate(indices)][1:]
+
+
+def getAvgWordLen(words, length):
+	if length == 0:
+		return length
+
+	return sum([len(word) for word in words])/length
 
 
 def createFeatureMatrix(spanishWords, germanWords, frenchWords, path, lyricStore):
-	#print path
-	#print os.getcwd()
-	#print os.path.abspath(path)
-	#print os.listdir(path)
 	features, labels = [], []
 
 	for genre in GENRES:
 		print 'GENRE:', genre
 		lyrics = getJSONObject(lyricStore[genre])
 		for song, words in lyrics.items():
-			#song = open(dirpath + "/" + file)
-			#words = []
-			#lineLengths = []
-			#lines = 0
-			#for line in song.readlines():
-				#words += line.split(' ')
-				#lineLengths.append(len(words))
-				#lines += 1
 
 			length = len(words)
-			if length != 0:
-				avgLen = sum([len(word) for word in words])/length
-			else:
-				avgLen = 0
-			#if length != 0:
-				#avgLineLength = sum([lineLen for lineLen in lineLengths])/lines
-			#else:
-				#avgLineLength = 0
+			avgLen = getAvgWordLen(words, length)
 			titleLen = len(song.split(" "))
 			sentVec = getSentimentVector(words)
 			numSpanish = countLangWords(words, spanishWords)
 			numGerman = countLangWords(words, germanWords)
 			numFrench = countLangWords(words, frenchWords)
-			#row = [length, lines, avgLineLength, avgLen, titleLen, numSpanish, numGerman, numFrench]
-			row = [length, avgLen, titleLen, numSpanish, numGerman, numFrench]
+			#bigrams = getBigramCounts(words)
+			#trigrams = getTrigramCounts(words)
+
+			indices = getLineIndices(words)
+			lines = len(indices)
+			avgLineLength = getAvgLineLen(indices)
+			row = [length, lines, avgLineLength, avgLen, titleLen, numSpanish, numGerman, numFrench]
 			row += sentVec
 			features.append(row)
 			labels.append(values.GEN_NUMBER[genre])
-			#print song, len(words)
-			#print words
 
 	return np.array(features, dtype=float), np.array(labels, dtype=float)
 
 
 def _createFeatureMatrix(spanishWords, germanWords, frenchWords, path):
-	#print path
-	#print os.getcwd()
-	#print os.path.abspath(path)
-	#print os.listdir(path)
 	features, labels = [], []
 
 	for genre in GENRES:
@@ -77,10 +72,8 @@ def _createFeatureMatrix(spanishWords, germanWords, frenchWords, path):
 					lines += 1
 
 				length = len(words)
-				if length != 0:
-					avgLen = sum([len(word) for word in words])/length
-				else:
-					avgLen = 0
+				avgLen = getAvgWordLen(words, length)
+
 				if lines != 0:
 					avgLineLength = sum([lineLen for lineLen in lineLengths])/lines
 				else:

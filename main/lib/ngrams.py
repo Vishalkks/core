@@ -16,10 +16,10 @@ def saveNgramDistsGenre(lyricStore, bigramStoreTotality, trigramStoreTotality, g
 	trigrams = []
 	for song, words in lyrics.items():
 		bigrams += list(ngrams(words, 2))
-		#trigrams += list(ngrams(words, 3))
+		trigrams += list(ngrams(words, 3))
 
 	bigramDist = FreqDist(bigrams)
-	#trigramDist = FreqDist(trigrams)
+	trigramDist = FreqDist(trigrams)
 
 	saveJSONObject(bigramDist, bigramStoreTotality[genre])
-	#saveJSONObject(trigramDist, trigramStoreTotality[genre])
+	saveJSONObject(trigramDist, trigramStoreTotality[genre])
