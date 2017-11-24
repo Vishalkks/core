@@ -1,7 +1,7 @@
 import codecs
 
 from Constants import directories
-from files import saveJSONObject
+from core.main.Util.files import saveJSONObject
 from lib.data import getWords
 
 spanishWordFile = directories.SPANISH_WORD_FILE

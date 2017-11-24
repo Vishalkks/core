@@ -38,7 +38,7 @@ def createLyricsObjects(path, lyricstore, bigramStoreTotality, trigramStoreTotal
 	for genre in GENRES:
 		createGenreLyricsObject(path, lyricstore, bigramStoreTotality, trigramStoreTotality, genre)
 
-
+'''
 def createGenreLyricsObject(path, lyricStore, bigramStoreTotality, trigramStoreTotality, genre):
 	lyricObj = dict()
 	print 'GENRE:', genre
@@ -63,7 +63,28 @@ def createGenreLyricsObject(path, lyricStore, bigramStoreTotality, trigramStoreT
 	print 'norm', norm
 	print 'err', err
 	saveJSONObject(lyricObj, lyricStore[genre])
+'''
 
+def createGenreLyricsObject(path, lyricStore, bigramStoreTotality, trigramStoreTotality, genre):
+	lyricObj = dict()
+	print 'GENRE:', genre
+	allWords = []
+	for dirpath, dirnames, files in os.walk(getGenrePath(path, genre)):
+		for file in files:
+			song = open(dirpath + "/" + file)
+			words = []
+			for line in song.readlines():
+				words += line.split(' ')
+			lyricObj[file] = words
+			allWords += words
+			#print words
+			song.close()
+
+	bigramWords = ngrams(allWords, 2)
+	trigramWords = ngrams(allWords, 2)
+	saveJSONObject(lyricObj, lyricStore[genre])
+	saveJSONObject(bigramWords, bigramStoreTotality[genre])
+	saveJSONObject(trigramWords, trigramStoreTotality[genre])
 
 
 def getWords(wordFile):

@@ -1,6 +1,6 @@
 import os
 
-from Constants.values import GENRES
+from core.main.Constants.values import GENRES
 
 PATH_TRAIN = '../../data/Lyrics/Training'
 PATH_VAL = '../../data/Lyrics/Validation'
