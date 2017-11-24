@@ -1,6 +1,6 @@
 from Constants import directories, values
 from Constants.values import NUM_SENTS, SENT_NUMBER
-from files import getJSONObject
+from core.main.Util.files import getJSONObject
 
 
 def newSentDict():

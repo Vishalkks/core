@@ -2,16 +2,15 @@ import os
 import numpy as np
 from nltk import FreqDist
 
-from Constants import values
-from Constants.values import GENRES
-from files import getGenrePath, getJSONObject
-from lib.sentiment import getSentimentVector, getSentimentCount
-from lib.spanish import countLangWords
-from prob import classifyGenreSong
-from timing import timer
-
-
-def createFeatureMatrix(spanishWords, germanWords, frenchWords, path, lyricStore):
+from core.main.Constants import values
+from core.main.Constants.values import GENRES
+from core.main.Util.files import getGenrePath, getJSONObject
+from core.main.lib.sentiment import getSentimentVector, getSentimentCount
+from core.main.lib.spanish import countLangWords
+from core.main.Util.prob import classifyGenreSong
+from core.main.Util.timing import timer
+from core.main.lib.ngrams import getFrequenciesGenre
+def createFeatureMatrix(spanishWords, germanWords, frenchWords, path, lyricStore, bigramTotality, trigramTotality):
 	#print path
 	#print os.getcwd()
 	#print os.path.abspath(path)
@@ -40,13 +39,15 @@ def createFeatureMatrix(spanishWords, germanWords, frenchWords, path, lyricStore
 				#avgLineLength = sum([lineLen for lineLen in lineLengths])/lines
 			#else:
 				#avgLineLength = 0
+			print(song)
 			titleLen = len(song.split(" "))
 			sentVec = getSentimentVector(words)
 			numSpanish = countLangWords(words, spanishWords)
 			numGerman = countLangWords(words, germanWords)
 			numFrench = countLangWords(words, frenchWords)
+			freqBigrams,freqTrigrams = getFrequenciesGenre(words,bigramTotality,trigramTotality)
 			#row = [length, lines, avgLineLength, avgLen, titleLen, numSpanish, numGerman, numFrench]
-			row = [length, avgLen, titleLen, numSpanish, numGerman, numFrench]
+			row = [length, avgLen, titleLen, numSpanish, numGerman, numFrench, freqBigrams, freqTrigrams]
 			row += sentVec
 			features.append(row)
 			labels.append(values.GEN_NUMBER[genre])
