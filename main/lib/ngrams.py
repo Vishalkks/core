@@ -43,6 +43,7 @@ def getFrequenciesGenre(words,bigramStoreTotality,trigramStoreTotality):
 
 	return frequencyVecBigrams,frequencyVecTrigrams
 
+'''
 def getCountsEachSong(lyricStore, bigramStoreFreqs, trigramStoreFreqs):
 	for genre in GENRES:
 		print 'GENRE:', genre
@@ -54,6 +55,24 @@ def getCountsEachSong(lyricStore, bigramStoreFreqs, trigramStoreFreqs):
 			trigrams = FreqDist(list(ngrams(words, 3)))
 			bigramCounts[song] = bigrams
 			trigramCounts[song] = trigrams
-
+		print(bigramCounts)
 		saveJSONObject(bigramCounts, bigramStoreFreqs[genre])
 		saveJSONObject(trigramCounts, trigramStoreFreqs[genre])
+'''
+
+def getFreqsByGenre(lyricsStore,bigramStoreTotality,trigramStoreTotality,bigramFreqsStore,trigramFreqsStore):
+	songCountsBigram = {}
+	songCountsTrigram = {}
+	for genre in GENRES:
+		print 'GENRE:', genre
+		lyrics = getJSONObject(lyricsStore[genre])
+		for song, words in lyrics.items():
+			freqBigrams, freqTrigrams = getFrequenciesGenre(words, bigramStoreTotality, trigramStoreTotality)
+			songCountsBigram[song] = freqBigrams
+			songCountsTrigram[song] = freqTrigrams
+
+	saveJSONObject(songCountsBigram,bigramFreqsStore)
+	saveJSONObject(songCountsTrigram,trigramFreqsStore)
+
+
+

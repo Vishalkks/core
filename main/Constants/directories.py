@@ -88,21 +88,25 @@ BIGRAMS_SONG_FREQS_DIR_TRAIN = '../../data/objects/ngrams/bigrams/freqs/train'
 BIGRAMS_SONG_FREQS_DIR_VAL = '../../data/objects/ngrams/bigrams/freqs/val'
 BIGRAMS_SONG_FREQS_DIR_TEST = '../../data/objects/ngrams/bigrams/freqs/test'
 
+'''
 BIGRAMS_SONG_FREQS_TRAIN = {genre: addGenre(BIGRAMS_SONG_FREQS_DIR_TRAIN, genre) for genre in GENRES}
 BIGRAMS_SONG_FREQS_VAL = {genre: addGenre(BIGRAMS_SONG_FREQS_DIR_VAL, genre) for genre in GENRES}
 BIGRAMS_SONG_FREQS_TEST = {genre: addGenre(BIGRAMS_SONG_FREQS_DIR_TEST, genre) for genre in GENRES}
+'''
 
-BIGRAMS_FREQS = {'train': BIGRAMS_SONG_FREQS_TRAIN, 'val': BIGRAMS_SONG_FREQS_VAL, 'test': BIGRAMS_SONG_FREQS_TEST}
+BIGRAMS_FREQS = {'train': "../../data/objects/ngrams/bigrams/freqs/train.json", 'val': "../../data/objects/ngrams/bigrams/freqs/val.json", 'test': "../../data/objects/ngrams/bigrams/freqs/test.json"}
 
 TRIGRAMS_SONG_FREQS_DIR_TRAIN = '../../data/objects/ngrams/trigrams/freqs/train'
 TRIGRAMS_SONG_FREQS_DIR_VAL = '../../data/objects/ngrams/trigrams/freqs/val'
 TRIGRAMS_SONG_FREQS_DIR_TEST = '../../data/objects/ngrams/trigrams/freqs/test'
 
+'''
 TRIGRAMS_SONG_FREQS_TRAIN = {genre: addGenre(TRIGRAMS_SONG_FREQS_DIR_TRAIN, genre) for genre in GENRES}
 TRIGRAMS_SONG_FREQS_VAL = {genre: addGenre(TRIGRAMS_SONG_FREQS_DIR_VAL, genre) for genre in GENRES}
 TRIGRAMS_SONG_FREQS_TEST = {genre: addGenre(TRIGRAMS_SONG_FREQS_DIR_TEST, genre) for genre in GENRES}
+'''
 
-TRIGRAMS_FREQS = {'train': TRIGRAMS_SONG_FREQS_TRAIN, 'val': TRIGRAMS_SONG_FREQS_VAL, 'test': TRIGRAMS_SONG_FREQS_TEST}
+TRIGRAMS_FREQS = {'train': "../../data/objects/ngrams/trigrams/freqs/train.json", 'val': "../../data/objects/ngrams/trigrams/freqs/val.json", 'test': "../../data/objects/ngrams/trigrams/freqs/test.json"}
 
 BIGRAMS_SONG_STORE_DIR_TRAIN = '../../data/objects/ngrams/bigrams/songs/train'
 BIGRAMS_SONG_STORE_DIR_VAL = '../../data/objects/ngrams/bigrams/songs/val'

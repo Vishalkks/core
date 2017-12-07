@@ -2,7 +2,7 @@ from Constants import directories
 from Constants.values import GENRES
 from Util.files import getLyrics, create, partitionFiles
 from lib.data import createLyricsObjects
-from lib.ngrams import saveNgramDists, getCountsEachSong
+from lib.ngrams import saveNgramDists, getFreqsByGenre
 
 
 lyricsDir = directories.LYRIC_PATH
@@ -26,4 +26,4 @@ trigramFreqs = directories.TRIGRAMS_FREQS
 for key in ['train', 'val', 'test']:
 	#createLyricsObjects(lyricsDir[key], lyricsStore[key], bigramTotality[key], trigramTotality[key])
 	#saveNgramDists(lyricsStore[key], bigramTotality[key], trigramTotality[key])
-	getCountsEachSong(lyricsStore[key], bigramFreqs[key],trigramFreqs[key])
+	getFreqsByGenre(lyricsStore[key],bigramTotality[key],trigramTotality[key],bigramFreqs[key],trigramFreqs[key])
