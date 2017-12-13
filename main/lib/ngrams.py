@@ -65,11 +65,12 @@ def getFreqsByGenre(lyricsStore,bigramStoreTotality,trigramStoreTotality,bigramF
 		songCountsBigram = {}
 		songCountsTrigram = {}
 		lyrics = getJSONObject(lyricsStore[genre])
+		print(len(lyrics.items()))
 		for song, words in lyrics.items():
 			freqBigrams, freqTrigrams = getFrequenciesGenre(words, bigramStoreTotality, trigramStoreTotality)
 			songCountsBigram[song] = freqBigrams
 			songCountsTrigram[song] = freqTrigrams
-
+		print(songCountsBigram,songCountsTrigram)
 		saveJSONObject(songCountsBigram,bigramFreqsStore[genre])
 		saveJSONObject(songCountsTrigram,trigramFreqsStore[genre])
 

@@ -15,15 +15,16 @@ trigramFreqs = directories.TRIGRAMS_FREQS
 #trigramSongDict = directories.TRIGRAMS_SONG_STORE
 
 
-#for key in ['train', 'val', 'test']:
-	#for genre in GENRES:
-		#create(lyricsStore[key][genre])
-		#create(bigramTotality[key][genre])
-		#create(trigramTotality[key][genre])
+for key in ['train', 'val', 'test']:
+	for genre in GENRES:
+		create(lyricsStore[key][genre])
+		create(bigramTotality[key][genre])
+		create(trigramTotality[key][genre])
 
 #partitionFiles(lyricsDir, directories.PATH_TRAIN, directories.PATH_VAL, directories.PATH_TEST, directories.LOG_PATH)
-
+'''
 for key in ['train', 'val', 'test']:
 	#createLyricsObjects(lyricsDir[key], lyricsStore[key], bigramTotality[key], trigramTotality[key])
 	#saveNgramDists(lyricsStore[key], bigramTotality[key], trigramTotality[key])
 	getFreqsByGenre(lyricsStore[key],bigramTotality[key],trigramTotality[key],bigramFreqs[key],trigramFreqs[key])
+'''

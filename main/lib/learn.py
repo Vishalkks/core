@@ -16,7 +16,8 @@ def createFeatureMatrix(spanishWords, germanWords, frenchWords, path, lyricStore
 	#print os.path.abspath(path)
 	#print os.listdir(path)
 	features, labels = [], []
-
+	bigramSongFreqs = getJSONObject(bigramSongFreqs)
+	trigramSongFreqs = getJSONObject(trigramSongFreqs)
 	for genre in GENRES:
 		print 'GENRE:', genre
 		lyrics = getJSONObject(lyricStore[genre])

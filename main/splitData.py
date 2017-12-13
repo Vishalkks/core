@@ -11,4 +11,4 @@ create(trainDir)
 create(testDir)
 create(valDir)
 
-partitionFiles(trainDir, testDir, valDir, originalDir=directories.LYRICS_DIR, logfile=open(directories.LOG_PATH, 'w+'))
+partitionFiles(directories.LYRICS_DIR, trainDir, testDir, valDir , logfile=open(directories.LOG_PATH, 'w+'))
