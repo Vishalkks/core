@@ -10,13 +10,14 @@ from core.main.lib.spanish import countLangWords
 from core.main.Util.prob import classifyGenreSong
 from core.main.Util.timing import timer
 from core.main.lib.ngrams import getFrequenciesGenre
-def createFeatureMatrix(spanishWords, germanWords, frenchWords, path, lyricStore, bigramTotality, trigramTotality):
+def createFeatureMatrix(spanishWords, germanWords, frenchWords, path, lyricStore, bigramTotality, trigramTotality, bigramSongFreqs, trigramSongFreqs):
 	#print path
 	#print os.getcwd()
 	#print os.path.abspath(path)
 	#print os.listdir(path)
 	features, labels = [], []
-
+	bigramSongFreqs = getJSONObject(bigramSongFreqs)
+	trigramSongFreqs = getJSONObject(trigramSongFreqs)
 	for genre in GENRES:
 		print 'GENRE:', genre
 		lyrics = getJSONObject(lyricStore[genre])
@@ -45,7 +46,7 @@ def createFeatureMatrix(spanishWords, germanWords, frenchWords, path, lyricStore
 			numSpanish = countLangWords(words, spanishWords)
 			numGerman = countLangWords(words, germanWords)
 			numFrench = countLangWords(words, frenchWords)
-			freqBigrams,freqTrigrams = getFrequenciesGenre(words,bigramTotality,trigramTotality)
+			freqBigrams,freqTrigrams = bigramSongFreqs[genre][song],trigramSongFreqs[genre][song]
 			#row = [length, lines, avgLineLength, avgLen, titleLen, numSpanish, numGerman, numFrench]
 			row = [length, avgLen, titleLen, numSpanish, numGerman, numFrench, freqBigrams, freqTrigrams]
 			row += sentVec
