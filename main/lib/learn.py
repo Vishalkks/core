@@ -23,6 +23,8 @@ def createFeatureMatrix(spanishWords, germanWords, frenchWords, path, lyricStore
 		print 'GENRE:', genre
 		lyrics = getJSONObject(lyricStore[genre])
 		for song, words in lyrics.items():
+			print 'words:'
+			print words
 			#song = open(dirpath + "/" + file)
 			#words = []
 			#lineLengths = []

@@ -7,7 +7,7 @@ from sklearn.neural_network import MLPClassifier
 
 from Constants.values import GEN_NUMBER
 from core.main.Constants import directories
-from files import getJSONObject, saveJSONObject
+from Util.files import getJSONObject, saveJSONObject
 
 
 def getIndices(li, val):

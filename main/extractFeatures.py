@@ -1,6 +1,6 @@
 from Constants import directories
 from Util.files import saveJSONObject
-from lib.learn import createFeatureMatrix, _createFeatureMatrix
+from lib.learn import createFeatureMatrix
 
 spanishWords = directories.SPANISH_WORD_SET
 germanWords = directories.GERMAN_WORD_SET,

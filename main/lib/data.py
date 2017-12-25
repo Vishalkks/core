@@ -65,6 +65,7 @@ def createGenreLyricsObject(path, lyricStore, bigramStoreTotality, trigramStoreT
 	saveJSONObject(lyricObj, lyricStore[genre])
 '''
 
+
 def createGenreLyricsObject(path, lyricStore, bigramStoreTotality, trigramStoreTotality, genre):
 	lyricObj = dict()
 	print 'GENRE:', genre
