@@ -4,7 +4,8 @@ import cPickle as pickle
 import random
 import nltk
 from nltk import ngrams
-import ujson as json
+import json
+#import ujson as json
 #import simplejson as json
 from shutil import copyfile
 
@@ -26,7 +27,8 @@ def saveJSONObject(obj, filename):
 	print 'saving...'
 	print filename
 	with open(filename, 'wb') as output:
-		json.dump(obj, output, indent=4, sort_keys=True, ensure_ascii=False)
+		json.dump(obj, output, indent=4, sort_keys=True)
+	output.close()
 
 
 def getPKLObject(filename):
@@ -49,7 +51,7 @@ def removeExtension(string):
 	return ".".join(string.split('.')[:-1])
 
 
-def create(filepath):
+def createDir(filepath):
 	if not os.path.exists(filepath):
 		os.makedirs(filepath, 0777)
 		os.chmod(filepath, 0777)
@@ -91,9 +93,9 @@ def partitionFiles(originalDir, trainDir, valDir, testDir, logfile):
 		artists = getGenrePath(originalDir, genre)
 
 		#print 'here'
-		create(genTrain)
-		create(genTest)
-		create(genVal)
+		createDir(genTrain)
+		createDir(genTest)
+		createDir(genVal)
 
 		#print 'here2'
 		for dirpath, dirnames, files in os.walk(artists):
@@ -105,7 +107,6 @@ def partitionFiles(originalDir, trainDir, valDir, testDir, logfile):
 		test = lyrics[int(len(lyrics)*0.6):int(len(lyrics)*0.8)]
 		val = lyrics[int(len(lyrics)*0.8):]
 
-		create(logfile)
 		#print 'here3'
 		moveFiles(train, genTrain, logfile)
 		#print '\tdone'
