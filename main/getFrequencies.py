@@ -1,10 +1,10 @@
-from core.main.Util.files import saveJSONObject, create
+from core.main.Util.files import saveJSONObject, createDir
 
 from core.main.Constants import directories
 from lib.data import getFrequencies
 
 
-create(directories.PICKLE_DIR)
+createDir(directories.PICKLE_DIR)
 genreFreqsTrain, allFreqsTrain, numSongsTrain = getFrequencies(directories.PATH_TRAIN)
 saveJSONObject(numSongsTrain, directories.NUM_SONGS_TRAIN)
 saveJSONObject(allFreqsTrain, directories.ALL_FREQS_TRAIN)
