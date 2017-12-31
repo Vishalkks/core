@@ -13,9 +13,9 @@ trigramFreqs = directories.TRIGRAMS_FREQS
 #partitionFiles(lyricsDir, directories.PATH_TRAIN, directories.PATH_VAL, directories.PATH_TEST, directories.LOG_PATH)
 
 
-for key in ['train', 'val', 'test']:
-	for genre in GENRES[GENRES.index('Hip_Hop'):]:
+for key in ['train','test','val']:
+	#for genre in GENRES:
 		#createLyricsObjectGenre(lyricsDir[key], lyricsStore[key], genre)
-		saveNGramDistsTrigramsGenre(lyricsStore[key], trigramTotality[key], genre)
+		#saveNGramDistsTrigramsGenre(lyricsStore[key], trigramTotality[key], genre)
 		#saveNGramDistsBigramsGenre(lyricsStore[key], bigramTotality[key], genre)
-	#getNGramFreqs(lyricsStore[key], bigramTotality[key], trigramTotality[key], bigramFreqs[key], trigramFreqs[key])
+	getNGramFreqs(lyricsStore[key], bigramTotality[key], trigramTotality[key], bigramFreqs[key], trigramFreqs[key])

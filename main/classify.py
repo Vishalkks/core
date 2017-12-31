@@ -45,23 +45,23 @@ if __name__ == '__main__':
 	print X.shape
 	print M.shape
 
-	'''
+
 	lr = LogisticRegression(solver='lbfgs', multi_class='multinomial', max_iter=1000, n_jobs=-1)
 	lr.fit(X, Y)
 	pred = lr.predict(M)
 	#saveJSONObject(pred, directories.RESULTS)
-	'''
+
 
 	#clf = SVC()
 
 	#lin_clf = sklearn.svm.LinearSVC()
 	#lin_clf.fit(X, Y)
 	#pred = lin_clf.predict(M)
-
+	'''
 	clf = MLPClassifier(activation='logistic')
 	clf.fit(X, Y)
 	pred = clf.predict(M)
-	saveJSONObject(pred, directories.RESULTS)
-
+	saveJSONObject(pred.tolist(), directories.RESULTS)
+	'''
 	print accuracy_score(N, pred)
 
