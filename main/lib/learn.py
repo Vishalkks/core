@@ -17,14 +17,12 @@ def createFeatureMatrix(spanishWords, germanWords, frenchWords, path, lyricStore
 	#print os.path.abspath(path)
 	#print os.listdir(path)
 	features, labels = [], []
-	bigramSongFreqs = getJSONObject(bigramSongFreqs)
-	trigramSongFreqs = getJSONObject(trigramSongFreqs)
 	for genre in GENRES:
 		print 'GENRE:', genre
 		lyrics = getJSONObject(lyricStore[genre])
+		bigramSongFreqsPerGenre = getJSONObject(bigramSongFreqs[genre])
+		trigramSongFreqsPerGenre = getJSONObject(trigramSongFreqs[genre])
 		for song, words in lyrics.items():
-			print 'words:'
-			print words
 			#song = open(dirpath + "/" + file)
 			#words = []
 			#lineLengths = []
@@ -43,22 +41,23 @@ def createFeatureMatrix(spanishWords, germanWords, frenchWords, path, lyricStore
 				#avgLineLength = sum([lineLen for lineLen in lineLengths])/lines
 			#else:
 				#avgLineLength = 0
-			print(song)
 			titleLen = len(song.split(" "))
 			sentVec = getSentimentVector(words)
 			numSpanish = countLangWords(words, spanishWords)
 			numGerman = countLangWords(words, germanWords)
 			numFrench = countLangWords(words, frenchWords)
-			freqBigrams,freqTrigrams = bigramSongFreqs[genre][song], trigramSongFreqs[genre][song]
+			freqBigrams,freqTrigrams = bigramSongFreqsPerGenre[song], trigramSongFreqsPerGenre[song]
 			#row = [length, lines, avgLineLength, avgLen, titleLen, numSpanish, numGerman, numFrench]
-			row = [length, avgLen, titleLen, numSpanish, numGerman, numFrench, freqBigrams, freqTrigrams]
+			row = [length, avgLen, titleLen, numSpanish, numGerman, numFrench]
 			row += sentVec
+			row += freqBigrams
+			row +=freqTrigrams
 			features.append(row)
 			labels.append(values.GEN_NUMBER[genre])
 			#print song, len(words)
 			#print words
 
-	return np.array(features, dtype=float), np.array(labels, dtype=float)
+	return features, labels
 
 
 @timer

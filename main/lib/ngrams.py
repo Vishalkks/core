@@ -126,13 +126,14 @@ def _getFreqsByGenre(lyricsStore,bigramStoreTotality,trigramStoreTotality,bigram
 
 def getNGramFreqs(lyricsStore, bigramStoreTotality, trigramStoreTotality, bigramFreqsStore, trigramFreqsStore):
 	for genre in GENRES:
+		print(genre)
 		getNGramFreqsGenre(lyricsStore, bigramStoreTotality, trigramStoreTotality, bigramFreqsStore, trigramFreqsStore, genre)
 
 
-def getNGramFreqsGenre(lyricsStore, bigramStoreTotality, trigramStoreTotality, bigramFreqsStore, trigramFreqsStore, genre):
+def getNGramFreqsGenre(lyricsStore, bigramStoreTotality, trigramStoreTotality, bigramFreqsStore, trigramFreqsStore, genreToStore):
 	bigramFrequencies = {}
 	trigramFrequencies = {}
-	lyrics = getJSONObject(lyricsStore[genre])
+	lyrics = getJSONObject(lyricsStore[genreToStore])
 	print(len(lyrics.items()))
 
 	for genre in GENRES:
@@ -150,13 +151,13 @@ def getNGramFreqsGenre(lyricsStore, bigramStoreTotality, trigramStoreTotality, b
 			trigrams = list(ngrams(words, 3))
 
 			for bigram in bigrams:
-				if bigram in bigramStoreTotalityObj:
-					bigramFrequencies[song][GENRES.index(genre)] += bigramStoreTotalityObj[bigram]
+				if unicode(bigram) in bigramStoreTotalityObj:
+					bigramFrequencies[song][GENRES.index(genre)] += bigramStoreTotalityObj[unicode(bigram)]
 
 			for trigram in trigrams:
-				if trigram in trigramStoreTotalityObj:
-					trigramFrequencies[song][GENRES.index(genre)] += trigramStoreTotalityObj[trigram]
+				if unicode(trigram) in trigramStoreTotalityObj:
+					trigramFrequencies[song][GENRES.index(genre)] += trigramStoreTotalityObj[unicode(trigram)]
 
 	print(bigramFrequencies, trigramFrequencies)
-	saveJSONObject(bigramFrequencies, bigramFreqsStore[genre])
-	saveJSONObject(trigramFrequencies, trigramFreqsStore[genre])
+	saveJSONObject(bigramFrequencies, bigramFreqsStore[genreToStore])
+	saveJSONObject(trigramFrequencies, trigramFreqsStore[genreToStore])
